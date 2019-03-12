@@ -50,7 +50,10 @@ Route::middleware(['auth', 'konstruktor'])->namespace('Konstruktor')->prefix('ko
 		Route::get('/getnilai/{magang_id}', 'PenilaianController@getnilai');
 
 		Route::get('/penilaian/downloadPdf/{magang_id}', 'PenilaianController@downloadPdf');
-		Route::resource('/penilaian', 'PenilaianController');
+		Route::get('/penilaian/load', 'PenilaianController@load');
+		Route::resource('/penilaian', 'PenilaianController'); //resource harus paling atas jika ingin menambahkan custom method
+		Route::post('/penilaian/validasi', 'PenilaianController@validasi');
+
 
 });
 

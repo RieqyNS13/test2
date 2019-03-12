@@ -115,6 +115,18 @@ class PenilaianController extends Controller
     {
         //
     }
+    public function validasi(Request $request){
+        $data = $request->input('data');
+        $validate = $request->input('validate');
+        foreach($data as $magang){
+            $magang_ = \App\Magang::whereHas('konstruktor', function($query){
+                $query->where('user_id', auth()->user()->id);
+            })->findOrFail($magang['id']);
+            $magang_->nilai_is_validate = $validate;
+            $magang_->save();
+        }
+        return ['sukses'=>'success'];
+    }
     public function getnilai($magang_id){
         $this->checkHasMagang($magang_id);
         // $check = Penilaian::with('sub_aspek_nilai.aspek_nilai')->whereHas('sub_aspek_nilai', function($query){
@@ -163,6 +175,13 @@ class PenilaianController extends Controller
         else if($nilai>50)return 'D';
         else return 'E';
     }
+    public function load(){
+            // Magang::with(['konstruktor.user','pembimbing_asal'])->where('user_id', auth()->user()->id)->first();
+         return \App\Magang::with(['users','konstruktor.user','surats.jenis_surat'])->whereHas('konstruktor', function($query){
+            $query->where('user_id', auth()->user()->id);
+         })->get();
+         //return $data;
+    }
     public function clean($string) {
         //$string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
        return preg_replace('/[^A-Za-z0-9 ]/', '', $string); // Removes special chars.
@@ -172,6 +191,7 @@ class PenilaianController extends Controller
             $query->where('user_id', auth()->user()->id);
         })->where('id',$magang_id)->firstOrFail();
     }
+
     public function downloadPdf($magang_id){
         $data = $this->getNilai($magang_id);
         $pdf = \PDF::loadView('pdf.penilaian',$data);
