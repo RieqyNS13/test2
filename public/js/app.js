@@ -2911,6 +2911,118 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['dataMagang', 'dataFieldPenilaian'],
   data: function data() {
@@ -2925,6 +3037,9 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: 'Asal',
         value: 'asal'
+      }, {
+        text: 'Konstruktor',
+        value: 'konstruktor'
       }, {
         text: 'Mulai Magang',
         value: 'from'
@@ -2945,9 +3060,17 @@ __webpack_require__.r(__webpack_exports__);
       items: [],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       dialog: false,
+      dialog2: false,
+      dialog3: false,
       active: null,
       text: 'asu',
-      penilaian: null
+      penilaian: null,
+      penilaian_edit: {
+        aspek_index: null,
+        subAspek_index: null,
+        old: null
+      },
+      namaNilaiBaru: null
     };
   },
   mounted: function mounted() {
@@ -2965,8 +3088,53 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {},
   methods: {
-    getNilaiPesertaMagang: function getNilaiPesertaMagang(magang) {
+    tambahNilai: function tambahNilai() {
+      this.penilaian[this.active].sub_aspek_nilai.push({
+        name: this.namaNilaiBaru,
+        nilai: 0,
+        is_custom: 1
+      });
+      this.namaNilaiBaru = null;
+      this.dialog3 = false; //alert(this.active);
+    },
+    deleteNilai: function deleteNilai(aspek_index, subAspek_index) {
       var _this = this;
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          var hapus = _this.penilaian[aspek_index].sub_aspek_nilai.splice(subAspek_index, 1); // Swal.fire(
+          //   'Deleted!',
+          //   'Nilai telah dihapus',
+          //   'success'
+          // )
+
+        }
+      });
+    },
+    changeNilaiName: function changeNilaiName(aspek_index, subAspek_index) {
+      //alert(this.penilaian[0].sub_aspek_nilai[0]);
+      this.penilaian_edit.aspek_index = aspek_index;
+      this.penilaian_edit.subAspek_index = subAspek_index;
+      this.penilaian_edit.old = this.penilaian[aspek_index].sub_aspek_nilai[subAspek_index].name;
+      this.dialog2 = true;
+    },
+    discardChange: function discardChange() {
+      this.penilaian[this.penilaian_edit.aspek_index].sub_aspek_nilai[this.penilaian_edit.subAspek_index].name = this.penilaian_edit.old;
+      this.dialog2 = false;
+    },
+    submitEditNilaiName: function submitEditNilaiName() {
+      this.dialog2 = false;
+    },
+    getNilaiPesertaMagang: function getNilaiPesertaMagang(magang) {
+      var _this2 = this;
 
       console.log(magang);
       Swal.fire({
@@ -2976,44 +3144,10 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
       axios.get('/konstruktor/getnilai/' + magang.id).then(function (res) {
-        _this.penilaian = res.data.penilaian;
-        _this.magang = res.data.magang;
-        _this.dialog = true;
+        _this2.penilaian = res.data.penilaian;
+        _this2.magang = res.data.magang;
+        _this2.dialog = true;
         Swal.close();
-      });
-    },
-    hapus: function hapus() {
-      var _this2 = this;
-
-      console.log(this.selected); //return;
-
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yakin !',
-        showLoaderOnConfirm: true,
-        preConfirm: function preConfirm() {
-          return axios.post("/admin/magang/delete", _this2.selected).then(function (res) {
-            if (res.data.error) {
-              throw new Error(res.data.error);
-            }
-          }).catch(function (error) {
-            Swal.showValidationMessage("Request failed: ".concat(error));
-          });
-        },
-        allowOutsideClick: function allowOutsideClick() {
-          return !Swal.isLoading();
-        }
-      }).then(function (result) {
-        if (result.value) {
-          Swal.fire('Good job!', 'Berhasil edit data magang', 'success');
-
-          _this2.loadMagang();
-        }
       });
     },
     addItemsMagangStatus: function addItemsMagangStatus() {
@@ -3082,7 +3216,7 @@ __webpack_require__.r(__webpack_exports__);
     loadMagang: function loadMagang() {
       var _this4 = this;
 
-      axios.get('/admin/magang/load').then(function (res) {
+      axios.get('/konstruktor/penilaian/load').then(function (res) {
         _this4.items = res.data;
 
         _this4.addItemsMagangStatus();
@@ -3107,7 +3241,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yakin !',
         showLoaderOnConfirm: true,
         preConfirm: function preConfirm() {
-          return axios.post("/admin/magang/validasi", data).then(function (res) {
+          return axios.post("/konstruktor/penilaian/validasi", data).then(function (res) {
             if (res.data.error) {
               throw new Error(res.data.error);
             }
@@ -3120,47 +3254,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (result) {
         if (result.value) {
-          Swal.fire('Good job!', 'Berhasil edit data magang', 'success');
+          Swal.fire('Good job!', 'Berhasil validasi nilai', 'success');
 
           _this5.loadMagang();
-        }
-      });
-    },
-    submitCompleted: function submitCompleted(completed) {
-      var _this6 = this;
-
-      console.log(this.selected); //return;
-
-      var data = {
-        'completed': completed,
-        'data': this.selected
-      };
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yakin !',
-        showLoaderOnConfirm: true,
-        preConfirm: function preConfirm() {
-          return axios.post("/admin/magang/completed", data).then(function (res) {
-            if (res.data.error) {
-              throw new Error(res.data.error);
-            }
-          }).catch(function (error) {
-            Swal.showValidationMessage("Request failed: ".concat(error));
-          });
-        },
-        allowOutsideClick: function allowOutsideClick() {
-          return !Swal.isLoading();
-        }
-      }).then(function (result) {
-        if (result.value) {
-          Swal.fire('Good job!', 'Berhasil edit data magang', 'success');
-
-          _this6.loadMagang();
         }
       });
     },
@@ -8956,331 +9052,410 @@ var render = function() {
                 "v-flex",
                 { attrs: { xs12: "" } },
                 [
-                  _c("v-data-table", {
-                    staticClass: "elevation-1",
-                    attrs: {
-                      headers: _vm.headers,
-                      items: _vm.items,
-                      "item-key": "id",
-                      "select-all": "",
-                      expand: _vm.expand
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "items",
-                        fn: function(props) {
-                          return [
-                            _c("tr", [
-                              _c(
-                                "td",
-                                [
-                                  _c("v-checkbox", {
-                                    attrs: { primary: "", "hide-details": "" },
-                                    model: {
-                                      value: props.selected,
-                                      callback: function($$v) {
-                                        _vm.$set(props, "selected", $$v)
-                                      },
-                                      expression: "props.selected"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      _vm.setSubItem(props.index)
-                                      props.expanded = !props.expanded
-                                    }
-                                  }
-                                },
-                                [_vm._v(_vm._s(props.item.users.name))]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      _vm.setSubItem(props.index)
-                                      props.expanded = !props.expanded
-                                    }
-                                  }
-                                },
-                                [_vm._v(_vm._s(props.item.asal))]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      _vm.setSubItem(props.index)
-                                      props.expanded = !props.expanded
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(props.item.from.toLocaleString())
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      _vm.setSubItem(props.index)
-                                      props.expanded = !props.expanded
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    _vm._s(props.item.until.toLocaleString())
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              props.item.status.code == -1
-                                ? _c(
-                                    "td",
-                                    {
-                                      on: {
-                                        click: function($event) {
-                                          _vm.setSubItem(props.index)
-                                          props.expanded = !props.expanded
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("span", { staticClass: "red--text" }, [
-                                        _vm._v(
-                                          _vm._s(props.item.status.description)
-                                        )
-                                      ])
-                                    ]
-                                  )
-                                : props.item.status.code == 0
-                                ? _c(
-                                    "td",
-                                    {
-                                      on: {
-                                        click: function($event) {
-                                          _vm.setSubItem(props.index)
-                                          props.expanded = !props.expanded
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "span",
-                                        { staticClass: "blue--text" },
-                                        [
-                                          _vm._v(
-                                            " " +
-                                              _vm._s(
-                                                props.item.status.description
-                                              )
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                : _c(
-                                    "td",
-                                    {
-                                      on: {
-                                        click: function($event) {
-                                          _vm.setSubItem(props.index)
-                                          props.expanded = !props.expanded
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "span",
-                                        { staticClass: "green--text" },
-                                        [
-                                          _vm._v(
-                                            " " +
-                                              _vm._s(
-                                                props.item.status.description
-                                              )
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  ),
-                              _vm._v(" "),
-                              !props.item.nilai_is_validate
-                                ? _c(
-                                    "td",
-                                    {
-                                      on: {
-                                        click: function($event) {
-                                          _vm.setSubItem(props.index)
-                                          props.expanded = !props.expanded
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("span", { staticClass: "red--text" }, [
-                                        _vm._v("Belum divalidasi")
-                                      ])
-                                    ]
-                                  )
-                                : _c(
-                                    "td",
-                                    {
-                                      on: {
-                                        click: function($event) {
-                                          _vm.setSubItem(props.index)
-                                          props.expanded = !props.expanded
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "span",
-                                        { staticClass: "green--text" },
-                                        [_vm._v("Sudah divalidasi")]
-                                      )
-                                    ]
-                                  ),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                [
-                                  _c(
-                                    "v-btn-toggle",
-                                    { attrs: { mandatory: "" } },
-                                    [
-                                      _c(
-                                        "v-btn",
-                                        {
-                                          on: {
-                                            click: function($event) {
-                                              $event.stopPropagation()
-                                              return _vm.getNilaiPesertaMagang(
-                                                props.item
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                  Penilaian\n                "
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-btn",
-                                        {
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.downloadPdfNilai(
-                                                props.item
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                  Download Nilai\n                "
-                                          )
-                                        ]
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ])
-                          ]
-                        }
+                  _c(
+                    "v-data-table",
+                    {
+                      staticClass: "elevation-1",
+                      attrs: {
+                        headers: _vm.headers,
+                        items: _vm.items,
+                        "item-key": "id",
+                        "select-all": "",
+                        expand: _vm.expand
                       },
-                      {
-                        key: "expand",
-                        fn: function(props) {
-                          return [
-                            _c(
-                              "v-card",
-                              { attrs: { flat: "" } },
-                              [
+                      scopedSlots: _vm._u([
+                        {
+                          key: "items",
+                          fn: function(props) {
+                            return [
+                              _c("tr", [
                                 _c(
-                                  "v-card-text",
-                                  _vm._l(_vm.magang.surats, function(surat) {
-                                    return _c(
-                                      "v-form",
+                                  "td",
+                                  [
+                                    _c("v-checkbox", {
+                                      attrs: {
+                                        primary: "",
+                                        "hide-details": ""
+                                      },
+                                      model: {
+                                        value: props.selected,
+                                        callback: function($$v) {
+                                          _vm.$set(props, "selected", $$v)
+                                        },
+                                        expression: "props.selected"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.setSubItem(props.index)
+                                        props.expanded = !props.expanded
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(props.item.users.name))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.setSubItem(props.index)
+                                        props.expanded = !props.expanded
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(props.item.asal))]
+                                ),
+                                _vm._v(" "),
+                                _c("td", {
+                                  domProps: {
+                                    innerHTML: _vm._s(
+                                      props.item.konstruktor
+                                        ? props.item.konstruktor.user.name
+                                        : "<span class='red--text'><i>--belum ada</i></span>"
+                                    )
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.setSubItem(props.index)
+                                      props.expanded = !props.expanded
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.setSubItem(props.index)
+                                        props.expanded = !props.expanded
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(props.item.from.toLocaleString())
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.setSubItem(props.index)
+                                        props.expanded = !props.expanded
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(props.item.until.toLocaleString())
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                props.item.status.code == -1
+                                  ? _c(
+                                      "td",
                                       {
-                                        key: surat.id,
-                                        attrs: {
-                                          target: "_blank",
-                                          method: "POST",
-                                          action: "/konstruktor/viewpdf"
+                                        on: {
+                                          click: function($event) {
+                                            _vm.setSubItem(props.index)
+                                            props.expanded = !props.expanded
+                                          }
                                         }
                                       },
                                       [
-                                        _c("input", {
-                                          attrs: {
-                                            type: "hidden",
-                                            name: "_token"
-                                          },
-                                          domProps: { value: _vm.csrf }
-                                        }),
-                                        _vm._v(" "),
-                                        _c("input", {
-                                          attrs: {
-                                            type: "hidden",
-                                            name: "filename"
-                                          },
-                                          domProps: { value: surat.path_upload }
-                                        }),
-                                        _vm._v(" "),
+                                        _c(
+                                          "span",
+                                          { staticClass: "red--text" },
+                                          [
+                                            _vm._v(
+                                              _vm._s(
+                                                props.item.status.description
+                                              )
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  : props.item.status.code == 0
+                                  ? _c(
+                                      "td",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            _vm.setSubItem(props.index)
+                                            props.expanded = !props.expanded
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "span",
+                                          { staticClass: "blue--text" },
+                                          [
+                                            _vm._v(
+                                              " " +
+                                                _vm._s(
+                                                  props.item.status.description
+                                                )
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  : _c(
+                                      "td",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            _vm.setSubItem(props.index)
+                                            props.expanded = !props.expanded
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "span",
+                                          { staticClass: "green--text" },
+                                          [
+                                            _vm._v(
+                                              " " +
+                                                _vm._s(
+                                                  props.item.status.description
+                                                )
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    ),
+                                _vm._v(" "),
+                                !props.item.nilai_is_validate
+                                  ? _c(
+                                      "td",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            _vm.setSubItem(props.index)
+                                            props.expanded = !props.expanded
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "span",
+                                          { staticClass: "red--text" },
+                                          [_vm._v("Belum divalidasi")]
+                                        )
+                                      ]
+                                    )
+                                  : _c(
+                                      "td",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            _vm.setSubItem(props.index)
+                                            props.expanded = !props.expanded
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "span",
+                                          { staticClass: "green--text" },
+                                          [_vm._v("Sudah divalidasi")]
+                                        )
+                                      ]
+                                    ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  [
+                                    _c(
+                                      "v-btn-toggle",
+                                      { attrs: { mandatory: "" } },
+                                      [
                                         _c(
                                           "v-btn",
                                           {
-                                            attrs: {
-                                              type: "submit",
-                                              color: "info"
+                                            on: {
+                                              click: function($event) {
+                                                $event.stopPropagation()
+                                                return _vm.getNilaiPesertaMagang(
+                                                  props.item
+                                                )
+                                              }
                                             }
                                           },
                                           [
                                             _vm._v(
-                                              _vm._s(surat.jenis_surat.name)
+                                              "\n                      Penilaian\n                    "
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-btn",
+                                          {
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.downloadPdfNilai(
+                                                  props.item
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                      Download Nilai\n                    "
                                             )
                                           ]
                                         )
                                       ],
                                       1
                                     )
-                                  }),
+                                  ],
                                   1
                                 )
-                              ],
-                              1
-                            )
-                          ]
+                              ])
+                            ]
+                          }
+                        },
+                        {
+                          key: "expand",
+                          fn: function(props) {
+                            return [
+                              _c(
+                                "v-card",
+                                { attrs: { flat: "" } },
+                                [
+                                  _c(
+                                    "v-card-text",
+                                    _vm._l(_vm.magang.surats, function(surat) {
+                                      return _c(
+                                        "v-form",
+                                        {
+                                          key: surat.id,
+                                          attrs: {
+                                            target: "_blank",
+                                            method: "POST",
+                                            action: "/konstruktor/viewpdf"
+                                          }
+                                        },
+                                        [
+                                          _c("input", {
+                                            attrs: {
+                                              type: "hidden",
+                                              name: "_token"
+                                            },
+                                            domProps: { value: _vm.csrf }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("input", {
+                                            attrs: {
+                                              type: "hidden",
+                                              name: "filename"
+                                            },
+                                            domProps: {
+                                              value: surat.path_upload
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "v-btn",
+                                            {
+                                              attrs: {
+                                                type: "submit",
+                                                color: "info"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(surat.jenis_surat.name)
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    }),
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ]
+                          }
                         }
+                      ]),
+                      model: {
+                        value: _vm.selected,
+                        callback: function($$v) {
+                          _vm.selected = $$v
+                        },
+                        expression: "selected"
                       }
-                    ]),
-                    model: {
-                      value: _vm.selected,
-                      callback: function($$v) {
-                        _vm.selected = $$v
-                      },
-                      expression: "selected"
-                    }
-                  })
+                    },
+                    [
+                      _vm._v(" "),
+                      _vm._v(" "),
+                      _c("template", { slot: "footer" }, [
+                        _c(
+                          "td",
+                          { attrs: { colspan: _vm.headers.length + 1 } },
+                          [
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: {
+                                  color: "info",
+                                  disabled:
+                                    _vm.selected.length > 0 ? false : true
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.submitValidasi(true)
+                                  }
+                                }
+                              },
+                              [_vm._v("Validasi")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-btn",
+                              {
+                                attrs: {
+                                  color: "error",
+                                  disabled:
+                                    _vm.selected.length > 0 ? false : true
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.submitValidasi(false)
+                                  }
+                                }
+                              },
+                              [_vm._v("Belum Validasi")]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ],
+                    2
+                  )
                 ],
                 1
               )
@@ -9313,7 +9488,7 @@ var render = function() {
                   staticClass: "headline grey lighten-2",
                   attrs: { "primary-title": "" }
                 },
-                [_vm._v("\n      Form Penilaian\n    ")]
+                [_vm._v("\n          Form Penilaian\n        ")]
               ),
               _vm._v(" "),
               _c(
@@ -9415,9 +9590,9 @@ var render = function() {
                           { key: aspek_i, attrs: { ripple: "" } },
                           [
                             _vm._v(
-                              "\n            " +
+                              "\n                " +
                                 _vm._s(aspek.name) +
-                                "\n\n          "
+                                "\n\n              "
                             )
                           ]
                         )
@@ -9438,26 +9613,107 @@ var render = function() {
                                     subAspek,
                                     subAspek_i
                                   ) {
-                                    return _c(
-                                      "div",
-                                      { key: subAspek_i },
-                                      [
-                                        _c("v-text-field", {
-                                          attrs: {
-                                            hint: "0-100",
-                                            label: subAspek.name
-                                          },
-                                          model: {
-                                            value: subAspek.nilai,
-                                            callback: function($$v) {
-                                              _vm.$set(subAspek, "nilai", $$v)
-                                            },
-                                            expression: "subAspek.nilai"
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    )
+                                    return _c("div", { key: subAspek_i }, [
+                                      aspek.name.includes("Non Teknis")
+                                        ? _c(
+                                            "div",
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  hint: "0-100",
+                                                  label: subAspek.name
+                                                },
+                                                model: {
+                                                  value: subAspek.nilai,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      subAspek,
+                                                      "nilai",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "subAspek.nilai"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        : _c(
+                                            "div",
+                                            [
+                                              subAspek.is_custom
+                                                ? _c("v-text-field", {
+                                                    attrs: {
+                                                      "prepend-icon": "edit",
+                                                      hint: "0-100",
+                                                      label: subAspek.name,
+                                                      "append-outer-icon":
+                                                        "delete"
+                                                    },
+                                                    on: {
+                                                      "click:prepend": function(
+                                                        $event
+                                                      ) {
+                                                        return _vm.changeNilaiName(
+                                                          aspek_i,
+                                                          subAspek_i
+                                                        )
+                                                      },
+                                                      "click:append-outer": function(
+                                                        $event
+                                                      ) {
+                                                        return _vm.deleteNilai(
+                                                          aspek_i,
+                                                          subAspek_i
+                                                        )
+                                                      }
+                                                    },
+                                                    model: {
+                                                      value: subAspek.nilai,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          subAspek,
+                                                          "nilai",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "subAspek.nilai"
+                                                    }
+                                                  })
+                                                : _c("v-text-field", {
+                                                    attrs: {
+                                                      "prepend-icon": "edit",
+                                                      hint: "0-100",
+                                                      label: subAspek.name
+                                                    },
+                                                    on: {
+                                                      "click:prepend": function(
+                                                        $event
+                                                      ) {
+                                                        return _vm.changeNilaiName(
+                                                          aspek_i,
+                                                          subAspek_i
+                                                        )
+                                                      }
+                                                    },
+                                                    model: {
+                                                      value: subAspek.nilai,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          subAspek,
+                                                          "nilai",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "subAspek.nilai"
+                                                    }
+                                                  })
+                                            ],
+                                            1
+                                          )
+                                    ])
                                   }),
                                   0
                                 )
@@ -9470,7 +9726,21 @@ var render = function() {
                       })
                     ],
                     2
-                  )
+                  ),
+                  _vm._v(" "),
+                  _vm.active == 1
+                    ? _c(
+                        "v-btn",
+                        {
+                          on: {
+                            click: function($event) {
+                              _vm.dialog3 = true
+                            }
+                          }
+                        },
+                        [_vm._v("Tambah")]
+                      )
+                    : _vm._e()
                 ],
                 1
               ),
@@ -9492,7 +9762,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("\n       Simpan Nilai\n      ")]
+                    [_vm._v("\n           Simpan Nilai\n          ")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -9505,7 +9775,192 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("\n       Close\n      ")]
+                    [_vm._v("\n           Close\n          ")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { width: "400" },
+          model: {
+            value: _vm.dialog2,
+            callback: function($$v) {
+              _vm.dialog2 = $$v
+            },
+            expression: "dialog2"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", { attrs: { "primary-title": "" } }, [
+                _vm._v("\n          Edit Nama Nilai\n        ")
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c(
+                    "v-layout",
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _vm.penilaian_edit.aspek_index != null
+                            ? _c("v-text-field", {
+                                attrs: { label: "Nama baru" },
+                                model: {
+                                  value:
+                                    _vm.penilaian[
+                                      _vm.penilaian_edit.aspek_index
+                                    ].sub_aspek_nilai[
+                                      _vm.penilaian_edit.subAspek_index
+                                    ].name,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.penilaian[
+                                        _vm.penilaian_edit.aspek_index
+                                      ].sub_aspek_nilai[
+                                        _vm.penilaian_edit.subAspek_index
+                                      ],
+                                      "name",
+                                      $$v
+                                    )
+                                  },
+                                  expression:
+                                    "penilaian[penilaian_edit.aspek_index].sub_aspek_nilai[penilaian_edit.subAspek_index].name"
+                                }
+                              })
+                            : _vm._e()
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "primary" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialog2 = false
+                        }
+                      }
+                    },
+                    [_vm._v("\n           Simpan \n          ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    { attrs: { flat: "" }, on: { click: _vm.discardChange } },
+                    [_vm._v("\n           Close\n          ")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { width: "400" },
+          model: {
+            value: _vm.dialog3,
+            callback: function($$v) {
+              _vm.dialog3 = $$v
+            },
+            expression: "dialog3"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", { attrs: { "primary-title": "" } }, [
+                _vm._v("\n          Tambah Nilai\n        ")
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c(
+                    "v-layout",
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: { label: "Nama nilai baru" },
+                            model: {
+                              value: _vm.namaNilaiBaru,
+                              callback: function($$v) {
+                                _vm.namaNilaiBaru = $$v
+                              },
+                              expression: "namaNilaiBaru"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "primary" },
+                      on: { click: _vm.tambahNilai }
+                    },
+                    [_vm._v("\n           Tambah Nilai \n          ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { flat: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialog3 = false
+                        }
+                      }
+                    },
+                    [_vm._v("\n           Close\n          ")]
                   )
                 ],
                 1
