@@ -81,7 +81,6 @@ table {
 </style>
 </head>
 <body>
-	
 <div id="judul">
 	PENILAIAN MAGANG<br>
 	TAHUN {{date('Y')}}
@@ -108,8 +107,8 @@ Nama : {{$magang->users->name}}<br>
 	@foreach($penilaian as $aspek)
 	<tr><td></td><th><center>{{$aspek->name}}</center></th><td></td><td></td></tr>
 		@foreach($aspek->sub_aspek_nilai as $key=>$sub_aspek_nilai)
-			<tr><td>{{$key+1}}</td><td>{{$sub_aspek_nilai->name}}</td><td>{{$sub_aspek_nilai->nilai}}</td><td>{{$sub_aspek_nilai->nilai_huruf}}</td>
-				@php ($total+=$sub_aspek_nilai->nilai)
+			<tr><td>{{$key+1}}</td><td>{{$sub_aspek_nilai['name']}}</td><td>{{$sub_aspek_nilai['nilai']}}</td><td>{{$sub_aspek_nilai['nilai_huruf']}}</td>
+				@php ($total+=$sub_aspek_nilai['nilai'])
 				@php ($jumlah_data++)
 		@endforeach
 	@endforeach
