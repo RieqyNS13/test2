@@ -3361,6 +3361,119 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['dataMagang', 'dataFieldPenilaian'],
   data: function data() {
@@ -3398,9 +3511,17 @@ __webpack_require__.r(__webpack_exports__);
       items: [],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       dialog: false,
+      dialog2: false,
+      dialog3: false,
       active: null,
       text: 'asu',
-      penilaian: null
+      penilaian: null,
+      penilaian_edit: {
+        aspek_index: null,
+        subAspek_index: null,
+        old: null
+      },
+      namaNilaiBaru: null
     };
   },
   mounted: function mounted() {
@@ -3418,8 +3539,53 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {},
   methods: {
-    getNilaiPesertaMagang: function getNilaiPesertaMagang(magang) {
+    tambahNilai: function tambahNilai() {
+      this.penilaian[this.active].sub_aspek_nilai.push({
+        name: this.namaNilaiBaru,
+        nilai: 0,
+        is_custom: 1
+      });
+      this.namaNilaiBaru = null;
+      this.dialog3 = false; //alert(this.active);
+    },
+    deleteNilai: function deleteNilai(aspek_index, subAspek_index) {
       var _this = this;
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          var hapus = _this.penilaian[aspek_index].sub_aspek_nilai.splice(subAspek_index, 1); // Swal.fire(
+          //   'Deleted!',
+          //   'Nilai telah dihapus',
+          //   'success'
+          // )
+
+        }
+      });
+    },
+    changeNilaiName: function changeNilaiName(aspek_index, subAspek_index) {
+      //alert(this.penilaian[0].sub_aspek_nilai[0]);
+      this.penilaian_edit.aspek_index = aspek_index;
+      this.penilaian_edit.subAspek_index = subAspek_index;
+      this.penilaian_edit.old = this.penilaian[aspek_index].sub_aspek_nilai[subAspek_index].name;
+      this.dialog2 = true;
+    },
+    discardChange: function discardChange() {
+      this.penilaian[this.penilaian_edit.aspek_index].sub_aspek_nilai[this.penilaian_edit.subAspek_index].name = this.penilaian_edit.old;
+      this.dialog2 = false;
+    },
+    submitEditNilaiName: function submitEditNilaiName() {
+      this.dialog2 = false;
+    },
+    getNilaiPesertaMagang: function getNilaiPesertaMagang(magang) {
+      var _this2 = this;
 
       console.log(magang);
       Swal.fire({
@@ -3429,14 +3595,14 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
       axios.get('/admin/getnilai/' + magang.id).then(function (res) {
-        _this.penilaian = res.data.penilaian;
-        _this.magang = res.data.magang;
-        _this.dialog = true;
+        _this2.penilaian = res.data.penilaian;
+        _this2.magang = res.data.magang;
+        _this2.dialog = true;
         Swal.close();
       });
     },
     hapus: function hapus() {
-      var _this2 = this;
+      var _this3 = this;
 
       console.log(this.selected); //return;
 
@@ -3450,7 +3616,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yakin !',
         showLoaderOnConfirm: true,
         preConfirm: function preConfirm() {
-          return axios.post("/admin/magang/delete", _this2.selected).then(function (res) {
+          return axios.post("/admin/magang/delete", _this3.selected).then(function (res) {
             if (res.data.error) {
               throw new Error(res.data.error);
             }
@@ -3465,7 +3631,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           Swal.fire('Good job!', 'Berhasil edit data magang', 'success');
 
-          _this2.loadMagang();
+          _this3.loadMagang();
         }
       });
     },
@@ -3493,7 +3659,7 @@ __webpack_require__.r(__webpack_exports__);
       window.open("/admin/penilaian/downloadPdf/" + magang.id, "_blank");
     },
     submitNilai: function submitNilai() {
-      var _this3 = this;
+      var _this4 = this;
 
       var data = {
         'magang': this.magang,
@@ -3523,7 +3689,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           Swal.fire('Good job!', 'Berhasil simpan nilai', 'success');
-          _this3.dialog = false; //this.loadMagang();
+          _this4.dialog = false; //this.loadMagang();
         }
       });
     },
@@ -3533,16 +3699,16 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     loadMagang: function loadMagang() {
-      var _this4 = this;
+      var _this5 = this;
 
       axios.get('/admin/penilaian/load').then(function (res) {
-        _this4.items = res.data;
+        _this5.items = res.data;
 
-        _this4.addItemsMagangStatus();
+        _this5.addItemsMagangStatus();
       });
     },
     submitValidasi: function submitValidasi(validate) {
-      var _this5 = this;
+      var _this6 = this;
 
       console.log(this.selected); //return;
 
@@ -3575,7 +3741,7 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           Swal.fire('Good job!', 'Berhasil validasi nilai', 'success');
 
-          _this5.loadMagang();
+          _this6.loadMagang();
         }
       });
     },
@@ -9638,7 +9804,7 @@ var render = function() {
                                           },
                                           [
                                             _vm._v(
-                                              "\n                  Penilaian\n                "
+                                              "\n                      Penilaian\n                    "
                                             )
                                           ]
                                         ),
@@ -9656,7 +9822,7 @@ var render = function() {
                                           },
                                           [
                                             _vm._v(
-                                              "\n                  Download Nilai\n                "
+                                              "\n                      Download Nilai\n                    "
                                             )
                                           ]
                                         )
@@ -9825,7 +9991,7 @@ var render = function() {
                   staticClass: "headline grey lighten-2",
                   attrs: { "primary-title": "" }
                 },
-                [_vm._v("\n      Form Penilaian\n    ")]
+                [_vm._v("\n          Form Penilaian\n        ")]
               ),
               _vm._v(" "),
               _c(
@@ -9927,9 +10093,9 @@ var render = function() {
                           { key: aspek_i, attrs: { ripple: "" } },
                           [
                             _vm._v(
-                              "\n            " +
+                              "\n                " +
                                 _vm._s(aspek.name) +
-                                "\n\n          "
+                                "\n\n              "
                             )
                           ]
                         )
@@ -9950,26 +10116,107 @@ var render = function() {
                                     subAspek,
                                     subAspek_i
                                   ) {
-                                    return _c(
-                                      "div",
-                                      { key: subAspek_i },
-                                      [
-                                        _c("v-text-field", {
-                                          attrs: {
-                                            hint: "0-100",
-                                            label: subAspek.name
-                                          },
-                                          model: {
-                                            value: subAspek.nilai,
-                                            callback: function($$v) {
-                                              _vm.$set(subAspek, "nilai", $$v)
-                                            },
-                                            expression: "subAspek.nilai"
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    )
+                                    return _c("div", { key: subAspek_i }, [
+                                      aspek.name.includes("Non Teknis")
+                                        ? _c(
+                                            "div",
+                                            [
+                                              _c("v-text-field", {
+                                                attrs: {
+                                                  hint: "0-100",
+                                                  label: subAspek.name
+                                                },
+                                                model: {
+                                                  value: subAspek.nilai,
+                                                  callback: function($$v) {
+                                                    _vm.$set(
+                                                      subAspek,
+                                                      "nilai",
+                                                      $$v
+                                                    )
+                                                  },
+                                                  expression: "subAspek.nilai"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        : _c(
+                                            "div",
+                                            [
+                                              subAspek.is_custom
+                                                ? _c("v-text-field", {
+                                                    attrs: {
+                                                      "prepend-icon": "edit",
+                                                      hint: "0-100",
+                                                      label: subAspek.name,
+                                                      "append-outer-icon":
+                                                        "delete"
+                                                    },
+                                                    on: {
+                                                      "click:prepend": function(
+                                                        $event
+                                                      ) {
+                                                        return _vm.changeNilaiName(
+                                                          aspek_i,
+                                                          subAspek_i
+                                                        )
+                                                      },
+                                                      "click:append-outer": function(
+                                                        $event
+                                                      ) {
+                                                        return _vm.deleteNilai(
+                                                          aspek_i,
+                                                          subAspek_i
+                                                        )
+                                                      }
+                                                    },
+                                                    model: {
+                                                      value: subAspek.nilai,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          subAspek,
+                                                          "nilai",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "subAspek.nilai"
+                                                    }
+                                                  })
+                                                : _c("v-text-field", {
+                                                    attrs: {
+                                                      "prepend-icon": "edit",
+                                                      hint: "0-100",
+                                                      label: subAspek.name
+                                                    },
+                                                    on: {
+                                                      "click:prepend": function(
+                                                        $event
+                                                      ) {
+                                                        return _vm.changeNilaiName(
+                                                          aspek_i,
+                                                          subAspek_i
+                                                        )
+                                                      }
+                                                    },
+                                                    model: {
+                                                      value: subAspek.nilai,
+                                                      callback: function($$v) {
+                                                        _vm.$set(
+                                                          subAspek,
+                                                          "nilai",
+                                                          $$v
+                                                        )
+                                                      },
+                                                      expression:
+                                                        "subAspek.nilai"
+                                                    }
+                                                  })
+                                            ],
+                                            1
+                                          )
+                                    ])
                                   }),
                                   0
                                 )
@@ -9982,7 +10229,21 @@ var render = function() {
                       })
                     ],
                     2
-                  )
+                  ),
+                  _vm._v(" "),
+                  _vm.active == 1
+                    ? _c(
+                        "v-btn",
+                        {
+                          on: {
+                            click: function($event) {
+                              _vm.dialog3 = true
+                            }
+                          }
+                        },
+                        [_vm._v("Tambah")]
+                      )
+                    : _vm._e()
                 ],
                 1
               ),
@@ -10004,7 +10265,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("\n       Simpan Nilai\n      ")]
+                    [_vm._v("\n           Simpan Nilai\n          ")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -10017,7 +10278,192 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("\n       Close\n      ")]
+                    [_vm._v("\n           Close\n          ")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { width: "400" },
+          model: {
+            value: _vm.dialog2,
+            callback: function($$v) {
+              _vm.dialog2 = $$v
+            },
+            expression: "dialog2"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", { attrs: { "primary-title": "" } }, [
+                _vm._v("\n          Edit Nama Nilai\n        ")
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c(
+                    "v-layout",
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _vm.penilaian_edit.aspek_index != null
+                            ? _c("v-text-field", {
+                                attrs: { label: "Nama baru" },
+                                model: {
+                                  value:
+                                    _vm.penilaian[
+                                      _vm.penilaian_edit.aspek_index
+                                    ].sub_aspek_nilai[
+                                      _vm.penilaian_edit.subAspek_index
+                                    ].name,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.penilaian[
+                                        _vm.penilaian_edit.aspek_index
+                                      ].sub_aspek_nilai[
+                                        _vm.penilaian_edit.subAspek_index
+                                      ],
+                                      "name",
+                                      $$v
+                                    )
+                                  },
+                                  expression:
+                                    "penilaian[penilaian_edit.aspek_index].sub_aspek_nilai[penilaian_edit.subAspek_index].name"
+                                }
+                              })
+                            : _vm._e()
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "primary" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialog2 = false
+                        }
+                      }
+                    },
+                    [_vm._v("\n           Simpan \n          ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    { attrs: { flat: "" }, on: { click: _vm.discardChange } },
+                    [_vm._v("\n           Close\n          ")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { width: "400" },
+          model: {
+            value: _vm.dialog3,
+            callback: function($$v) {
+              _vm.dialog3 = $$v
+            },
+            expression: "dialog3"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", { attrs: { "primary-title": "" } }, [
+                _vm._v("\n          Tambah Nilai\n        ")
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c(
+                    "v-layout",
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "" } },
+                        [
+                          _c("v-text-field", {
+                            attrs: { label: "Nama nilai baru" },
+                            model: {
+                              value: _vm.namaNilaiBaru,
+                              callback: function($$v) {
+                                _vm.namaNilaiBaru = $$v
+                              },
+                              expression: "namaNilaiBaru"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "primary" },
+                      on: { click: _vm.tambahNilai }
+                    },
+                    [_vm._v("\n           Tambah Nilai \n          ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { flat: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.dialog3 = false
+                        }
+                      }
+                    },
+                    [_vm._v("\n           Close\n          ")]
                   )
                 ],
                 1

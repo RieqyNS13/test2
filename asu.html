@@ -1,0 +1,707 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Administrateur de Magento</title>
+<link rel="icon" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/favicon.ico" type="image/x-icon"/>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/mage/adminhtml/jquery.min.js"></script>
+<script type="text/javascript">
+    var BLANK_URL = 'https://www.editions-dangles.fr/js/blank.html';
+    var BLANK_IMG = 'https://www.editions-dangles.fr/js/spacer.gif';
+    var BASE_URL = 'https://www.editions-dangles.fr/index.php/filesystem/index/index/key/65da852654660ca913ac22dbb12d34ad/';
+    var SKIN_URL = 'https://www.editions-dangles.fr/skin/adminhtml/default/default/';
+    var FORM_KEY = 'OrKaWfs9npM67O50';
+</script>
+
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/js/calendar/calendar-win2k-1.css" />
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/reset.css" media="all" />
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/boxes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/custom.css" media="all" />
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/xmlconnect/boxes.css" media="all" />
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/aw_blog/css/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/css/amasty/ambase/default.css" media="all" />
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/laposte/colissimo/css/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/laposte/shippingrule/css/style.css" media="all" />
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/filesystem/css/styles.css" media="all" />
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/filesystem/css/jqueryfiletree.css" media="all" />
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/print.css" media="print" />
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/menu.css" media="screen, projection" />
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/prototype/prototype.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/prototype/window.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/scriptaculous/builder.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/scriptaculous/effects.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/scriptaculous/dragdrop.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/scriptaculous/controls.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/scriptaculous/slider.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/lib/ccard.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/prototype/validation.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/varien/js.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/mage/translate.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/mage/adminhtml/hash.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/mage/adminhtml/events.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/mage/adminhtml/loader.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/mage/adminhtml/grid.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/mage/adminhtml/tabs.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/mage/adminhtml/form.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/mage/adminhtml/accordion.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/mage/adminhtml/tools.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/mage/adminhtml/uploader.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/mage/adminhtml/product.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/calendar/calendar.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/calendar/calendar-setup.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/filesystem/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/filesystem/base64.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/filesystem/script.js"></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/filesystem/jqueryfiletree.js"></script>
+<!--[if lt IE 8]>
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/iestyles.css" media="all" />
+<![endif]-->
+<!--[if lt IE 7]>
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/below_ie7.css" media="all" />
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/lib/ds-sleight.js" defer></script>
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/varien/iehover-fix.js"></script>
+<![endif]-->
+<!--[if IE 7]>
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/ie7.css" media="all" />
+<![endif]-->
+<!--[if lte IE 8]>
+<link rel="stylesheet" type="text/css" href="https://www.editions-dangles.fr/skin/adminhtml/default/default/xmlconnect/iestyles.css" media="all" />
+<![endif]-->
+
+
+
+<script type="text/javascript">
+    Fieldset.addToPrefix(16);
+</script>
+
+<script type="text/javascript">//<![CDATA[
+        var Translator = new Translate({"HTML tags are not allowed":"Les balises HTML ne sont pas autoris\u00e9es","Please select an option.":"Veuillez s\u00e9lectionner une option.","This is a required field.":"Ceci est un champ obligatoire.","Please enter a valid number in this field.":"Veuillez entrer un num\u00e9ro valide dans ce champ.","The value is not within the specified range.":"Cette valeur ne fait pas partie de la marge accept\u00e9e.","Please use numbers only in this field. Please avoid spaces or other characters such as dots or commas.":"Veuillez n'utiliser que des chiffres dans ce champ. Evitez les espaces et autres caract\u00e8res tels que des points ou des virgules.","Please use letters only (a-z or A-Z) in this field.":"Veuillez n'utiliser que des lettres (a-z ou A-Z) dans ce champ.","Please use only letters (a-z), numbers (0-9) or underscore(_) in this field, first character should be a letter.":"Veuillez utiliser seulement des lettres (a-z), des chiffres (0-9) ou le tiret bas (_) dans ce champ, le premier caract\u00e8re doit \u00eatre une lettre.","Please use only letters (a-z or A-Z) or numbers (0-9) only in this field. No spaces or other characters are allowed.":"Veuillez uniquement utiliser des lettres (a-z ou A-Z) ou des chiffres (0-9) dans ce champ. Aucune espace ou aucun autre caract\u00e8re n'est autoris\u00e9.","Please use only letters (a-z or A-Z) or numbers (0-9) or spaces and # only in this field.":"Veuillez uniquement utiliser des lettres (a-z ou A-Z) ou des chiffres (0-9) ou des espaces et # uniquement dans ce champ.","Please enter a valid phone number. For example (123) 456-7890 or 123-456-7890.":"Veuillez entrer un num\u00e9ro de t\u00e9l\u00e9phone valide. Par exemple (123) 456-7890 ou 123-456-7890.","Please enter a valid fax number. For example (123) 456-7890 or 123-456-7890.":"Veuillez entrer un num\u00e9ro de fax valide. Par exemple (123) 456-7890 ou 123-456-7890.","Please enter a valid date.":"Veuillez entrer une date valide.","The From Date value should be less than or equal to the To Date value.":"El valor Desde la fecha debe ser inferior o igual al valor Hasta la fecha.","Please enter a valid email address. For example johndoe@domain.com.":"Veuillez entrer une adresse courriel valide. Par exemple pierremaistre@domaine.com.","Please use only visible characters and spaces.":"Veuillez uniquement utiliser des espaces et des caract\u00e8res visibles.","Please enter 6 or more characters. Leading or trailing spaces will be ignored.":"Email ou mot de passe invalide","Please enter 7 or more characters. Password should contain both numeric and alphabetic characters.":"Veuillez entrer 7 caract\u00e8res ou plus. Le mot de passe doit contenir des lettres et des chiffres.","Please make sure your passwords match.":"Les deux mots de passe ne sont pas identiques, veuillez r\u00e9essayer.","Please enter a valid URL. Protocol is required (http:\/\/, https:\/\/ or ftp:\/\/)":"Veuillez entrer une URL valide. Le protocole est n\u00e9cessaire (http:\/\/, https:\/\/ ou ftp:\/\/)","Please enter a valid URL. For example http:\/\/www.example.com or www.example.com":"Veuillez saisir une adresse Internet valide. Par exemple http:\/\/www.exemple.com ou www.exemple.com","Please enter a valid URL Key. For example \"example-page\", \"example-page.html\" or \"anotherlevel\/example-page\".":"Veuillez entrer une cl\u00e9 d'URL valide. Par exemple,  \"page-exemple\", \"page-exemple.html\" ou \"autreniveau\/page-exemple\".","Please enter a valid XML-identifier. For example something_1, block5, id-4.":"Veuillez entrer un identifiant XML valide. Par exemple, objet_1, bloc5, id-4.","Please enter a valid social security number. For example 123-45-6789.":"Veuillez entrer un num\u00e9ro de s\u00e9curit\u00e9 sociale valide. Par exemple 123-54-6789.","Please enter a valid zip code. For example 90602 or 90602-1234.":"Veuillez entrer un code postal valide. Par exemple 90602 ou 90602-1234.","Please enter a valid zip code.":"Veuillez entrer un code postal valide.","Please use this date format: dd\/mm\/yyyy. For example 17\/03\/2006 for the 17th of March, 2006.":"Veuillez utiliser ce format de date: dd\/mm\/yyyy. Par exemple 29\/04\/1960 pour le 29th of April, 1960.","Please enter a valid $ amount. For example $100.00.":"Veuillez entrer un montant en $ valide. Par exemple 100 $.","Please select one of the above options.":"Veuillez s\u00e9lectionner l'un des choix ci-dessus.","Please select one of the options.":"Veuillez s\u00e9lectionner l'une des options.","Please select State\/Province.":"Veuillez choisir l'\u00e9tat\/la province.","Please enter a number greater than 0 in this field.":"Veuillez entrer un nombre plus grand que 0 dans ce champ.","Please enter a number 0 or greater in this field.":"Veuillez entrer un nombre \u00e9gal ou sup\u00e9rieur \u00e0 0 dans ce champ.","Please enter a valid credit card number.":"Veuillez entrer un num\u00e9ro de carte de cr\u00e9dit valide.","Credit card number does not match credit card type.":"Le num\u00e9ro de la carte de cr\u00e9dit ne correspond pas au type de la carte de cr\u00e9dit.","Card type does not match credit card number.":"Le type de la carte ne correspond pas au num\u00e9ro de la carte de cr\u00e9dit.","Incorrect credit card expiration date.":"Date d'expiration de la carte incorrecte.","Please enter a valid credit card verification number.":"Veuillez entrer un num\u00e9ro de v\u00e9rification de carte de cr\u00e9dit valide.","Please use only letters (a-z or A-Z), numbers (0-9) or underscore(_) in this field, first character should be a letter.":"Veuillez n'utiliser que des lettres (a-z ou A-Z),  des nombres (0-9) ou le trait pour souligner (_) dans ce champ, le premier caract\u00e8re devant \u00eatre obligatoirement une lettre.","Please input a valid CSS-length. For example 100px or 77pt or 20em or .5ex or 50%.":"Veuillez entrer une longueur CSS valide. Par exemple, 00\u00a0px ou 77\u00a0pt ou 20\u00a0em ou 0,5\u00a0ex ou 50\u00a0%.","Text length does not satisfy specified text range.":"La longueur du texte ne correspond pas aux attentes sp\u00e9cifi\u00e9es.","Please enter a number lower than 100.":"Veuillez entrer un nombre inf\u00e9rieur \u00e0 100.","Please select a file":"Veuillez s\u00e9lectionner un fichier","Please enter issue number or start date for switch\/solo card type.":"Veuillez entrer le num\u00e9ro de probl\u00e8me ou la date de d\u00e9but pour le type de carte Switch\/Solo.","Please wait, loading...":"En cours de chargement, veuillez patienter...","This date is a required value.":"Cette date est une valeur requise.","Please enter a valid day (1-%d).":"Veuillez entrer un jour valide (1-%d).","Please enter a valid month (1-12).":"Veuillez entrer un mois valide (1-12).","Please enter a valid year (1900-%d).":"Veuillez entrer une ann\u00e9e valide (1900-%d).","Please enter a valid full date":"Veuillez entrer une date compl\u00e8te valide","Please enter a valid date between %s and %s":"Veuillez entrer une date valide entre %s et %s","Please enter a valid date equal to or greater than %s":"Veuillez entrer une date valide \u00e9galement ou sup\u00e9rieure \u00e0 %s","Please enter a valid date less than or equal to %s":"Veuillez entrer une date valide inf\u00e9rieure ou \u00e9gale \u00e0 %s","Complete":"Termin\u00e9","Upload Security Error":"T\u00e9l\u00e9charger l'erreur de s\u00e9curit\u00e9","Upload HTTP Error":"T\u00e9l\u00e9charger l'erreur HTTP","Upload I\/O Error":"Erreur d'envoi E\/S (Entr\u00e9e\/Sortie)","SSL Error: Invalid or self-signed certificate":"Erreur SSL : certificat invalide","Gb":"La G.B.","Mb":"Mo","b":"o","Add Products":"Ajouter produits","Please choose to register or to checkout as a guest":"Veuillez choisir de vous enregistrer ou de passer \u00e0 la caisse en tant qu'invit\u00e9","Your order cannot be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address.":"Votre commande ne peut pas \u00eatre r\u00e9alis\u00e9e pour le moment \u00e9tant donn\u00e9 qu'aucune m\u00e9thode de livraison n'est disponible. Veuillez apporter les modifications n\u00e9cessaires \u00e0 votre adresse de livraison.","Please specify payment method.":"Veuillez pr\u00e9ciser une m\u00e9thode de paiement.","Your order cannot be completed at this time as there is no payment methods available for it.":"Votre commande ne peut \u00eatre termin\u00e9e pour l\u2019heure, car aucun moyen de paiement n\u2019est disponible pour elle.","Insert Widget...":"Ins\u00e9rer un widget..."});
+        //]]></script>
+
+<script type="text/javascript">
+//<![CDATA[
+enUS = {"m":{"wide":["January","February","March","April","May","June","July","August","September","October","November","December"],"abbr":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]}}; // en_US locale reference
+Calendar._DN = ["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"]; // full day names
+Calendar._SDN = ["dim.","lun.","mar.","mer.","jeu.","ven.","sam."]; // short day names
+Calendar._FD = 1; // First day of the week. "0" means display Sunday first, "1" means display Monday first, etc.
+Calendar._MN = ["janvier","f\u00e9vrier","mars","avril","mai","juin","juillet","ao\u00fbt","septembre","octobre","novembre","d\u00e9cembre"]; // full month names
+Calendar._SMN = ["janv.","f\u00e9vr.","mars","avr.","mai","juin","juil.","ao\u00fbt","sept.","oct.","nov.","d\u00e9c."]; // short month names
+Calendar._am = "AM"; // am/pm
+Calendar._pm = "PM";
+
+// tooltips
+Calendar._TT = {};
+Calendar._TT["INFO"] = "Au sujet du Calendrier";
+
+Calendar._TT["ABOUT"] =
+"Sélecteur DHTML Date/Heure\n" +
+"(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n" +
+"Pour visiter la dernière version: http://www.dynarch.com/projects/calendar/\n" +
+"Distribué sous GNU LGPL. Voir http://gnu.org/licenses/lgpl.html pour plus de détails." +
+"\n\n" +
+"Sélection de la date:\n" +
+"- Utilisez les boutons \xab, \xbb pour sélectionner l'année\n" +
+"Utilisez les boutons " + String.fromCharCode(0x2039) + ", " + String.fromCharCode(0x203a) + " pour sélectionner le mois\n" +
+"Maintenez le bouton de la souris enfoncé sur n'importe quel des boutons ci-dessus pour sélectionner plus rapidement";
+Calendar._TT["ABOUT_TIME"] = "\n\n" +
+"Sélection de l'heure:\n" +
+"- Cliquez sur n'importe quelle partie de l'heure pour l'augmenter\n" +
+"- - ou appuyez sur SHIFT en cliquant pour la diminuer\n" +
+"- ou cliquez et faites glisser pour sélectionner plus rapidement";
+
+Calendar._TT["PREV_YEAR"] = "Année précédente  (maintenez pour menu)";
+Calendar._TT["PREV_MONTH"] = "Mois précédent (maintenez pour menu)";
+Calendar._TT["GO_TODAY"] = "Aller aujourd'hui";
+Calendar._TT["NEXT_MONTH"] = "Mois suivant (maintenez pour menu)";
+Calendar._TT["NEXT_YEAR"] = "Année Suivante (maintenez pour menu)";
+Calendar._TT["SEL_DATE"] = "Sélectionnez la date";
+Calendar._TT["DRAG_TO_MOVE"] = "Faire glisser";
+Calendar._TT["PART_TODAY"] = ' (' + "aujourd\u2019hui" + ')';
+
+// the following is to inform that "%s" is to be the first day of week
+Calendar._TT["DAY_FIRST"] = "Afficher %s en premier";
+
+// This may be locale-dependent. It specifies the week-end days, as an array
+// of comma-separated numbers. The numbers are from 0 to 6: 0 means Sunday, 1
+// means Monday, etc.
+Calendar._TT["WEEKEND"] = "0,6";
+
+Calendar._TT["CLOSE"] = "Fermer";
+Calendar._TT["TODAY"] = "aujourd\u2019hui";
+Calendar._TT["TIME_PART"] = "(SHIFT+) Cliquez ou faites glisser pour changer de valeur.";
+
+// date formats
+Calendar._TT["DEF_DATE_FORMAT"] = "%e %b %Y";
+Calendar._TT["TT_DATE_FORMAT"] = "%e %B %Y";
+
+Calendar._TT["WK"] = "semaine";
+Calendar._TT["TIME"] = "Heure:";
+
+CalendarDateObject._LOCAL_TIMZEONE_OFFSET_SECONDS = 3600;
+CalendarDateObject._SERVER_TIMZEONE_SECONDS = 1552330211;
+
+//]]>
+</script>
+</head>
+
+<body id="html-body" class=" filesystem-adminhtml-filesystem-index">
+<div class="wrapper">
+        <noscript>
+        <div class="noscript">
+            <div class="noscript-inner">
+                <p><strong>Le JavaScript semble être désactivé sur votre navigateur.</strong></p>
+                <p>Vous devez avoir activé le JavaScript dans votre navigateur pour utiliser les fonctionnalités de ce site web.</p>
+            </div>
+        </div>
+    </noscript>
+        <div class="header">
+            <div class="header-top">
+    <a href="https://www.editions-dangles.fr/index.php/admin/index/index/key/65da852654660ca913ac22dbb12d34ad/"><img src="https://www.editions-dangles.fr/skin/adminhtml/default/default/images/logo.gif" alt="Logo de Magento" class="logo"/></a>
+    <div class="header-right">
+        <p class="super">
+            Connecté en tant que DZIU69<span class="separator">|</span>lundi 11 mars 2019<span class="separator">|</span><a href="http://golinks.magento.com/CE15" onclick="this.target='_blank'" class="go-try">Essayer Magento gratuitement</a><span class="separator">|</span><a href="https://www.editions-dangles.fr/index.php/admin/index/logout/key/6353f0e18d51977935ee570d6f731bc2/" class="link-logout">Se déconnecter</a>
+        </p>
+                <fieldset>
+            <legend>Search</legend>
+            <span id="global_search_indicator" class="autocomplete-indicator" style="display: none">
+                <img src="https://www.editions-dangles.fr/skin/adminhtml/default/default/images/ajax-loader.gif" alt="Chargement..." class="v-middle"/>
+            </span>
+                        <input id="global_search" name="query" type="text" class="input-text" value="Enregistrement global des recherches" onfocus="if(this.value=='Enregistrement global des recherches')this.value=''; " onblur="if(this.value=='')this.value='Enregistrement global des recherches';" />
+            <div id="global_search_autocomplete" class="autocomplete"></div>
+            <script type="text/javascript">
+                new Ajax.Autocompleter(
+                    'global_search',
+                    'global_search_autocomplete',
+                    'https://www.editions-dangles.fr/index.php/admin/index/globalSearch/key/6c5ad60a1766005c830fcfb7888a76e8/',
+                    {
+                        paramName:"query",
+                        minChars:2,
+                        indicator:"global_search_indicator",
+                        updateElement:getSelectionId,
+                        evalJSON:'force'
+                    }
+                );
+                function getSelectionId(li) {
+                    location.href = li.getAttribute('url');
+                }
+            </script>
+        </fieldset>
+            </div>
+</div>
+        <div class="clear"></div>
+            
+<div class="nav-bar">
+<!-- menu start -->
+<ul id="nav">
+<li  class="  level0"> <a href="https://www.editions-dangles.fr/index.php/admin/dashboard/index/key/fd9b6fa2c2daddcffef89aa845772227/"   class=""><span>Tableau de bord</span></a>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level0"> <a href="#"  onclick="return false" class=""><span>Ventes</span></a>
+<ul >
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/sales_order/index/key/4979e59528fc628bf7d0ad75e69c5e50/"   class=""><span>Commandes</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/sales_invoice/index/key/dfb77f801ea857d512d3637610dbd716/"   class=""><span>Factures</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/sales_shipment/index/key/5cbffc661e66eb54a1acf02dc7b2127d/"   class=""><span>Expéditions</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/sales_creditmemo/index/key/dca10b67ed6ab113c0e36d81a41e6c23/"   class=""><span>Avoirs</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/sales_transactions/index/key/21207056ab29393cf5a875015e182605/"   class=""><span>Transactions</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/sales_recurring_profile/index/key/4a48ace66f9ab68b3f62306c754493b7/"   class=""><span>Profils récurrents (beta)</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/sales_billing_agreement/index/key/8516ad1973c5d56283e5fc7a496b8a20/"   class=""><span>Accords de facturation</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/checkout_agreement/index/key/81f6fc61d0c78158e949908eca9ea243/"   class=""><span>Conditions d'utilisation</span></a>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>TVA</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/tax_rule/index/key/3a7d0086b7e9860e77f22558c35356df/"   class=""><span>Gérer les règles d'imposition</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/tax_rate/index/key/34a8e0e972d583d10e58828bab5a8015/"   class=""><span>Gérer les taux d'imposition par zone</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/tax_rate/importExport/key/c98b74f34c03475b2799997286489ee5/"   class=""><span>Taux de taxe d'importation / d'exportation</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/tax_class_customer/index/key/4faa11e64582f18d8f08cea384818644/"   class=""><span>Classes de taxe client</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/tax_class_product/index/key/3ea5c78b56097b96b2a5eb54485c537c/"   class=""><span>Catégories de taxes sur les produits</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Orders Export Tool</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/profiles/index/key/710889c29b9c5c00f8fc6d4820c3b141/"   class=""><span>Export profiles</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/attributes/index/key/5e760542abf7d4565919ad1c362e4012/"   class=""><span>Custom attributes</span></a>
+</li>
+</ul>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/dpdfrance_export/index/key/66400cfceb6417b49b799991b2ccd801/"   class=""><span>DPD France</span></a>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent last level1"> <a href="#"  onclick="return false" class=""><span>Colissimo</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/colissimo_price/index/key/4839846f0cc84d979467de674a71ab44/"   class=""><span>Prix</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/colissimo_rule/index/key/e6b428f2cf1b8551bbb1677cc30f20a4/"   class=""><span>Règles de prix avancées</span></a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level0"> <a href="#"  onclick="return false" class=""><span>Catalogue</span></a>
+<ul >
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/catalog_product/index/key/c2ad3b3987bba4319cd3e823611d42a4/"   class=""><span>Gérer les produits</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/catalog_category/index/key/d76fce377bb470753bcfcb5cfee7371c/"   class=""><span>Gérer les catégories</span></a>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Attributs</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/catalog_product_attribute/index/key/96ca234c72a450ef69d9eb0e5e23e73b/"   class=""><span>Gérer attributs</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/catalog_product_set/index/key/4878d4699090a7f9e1a0836b72dba6a2/"   class=""><span>Gérer les jeux d'attributs</span></a>
+</li>
+</ul>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/urlrewrite/index/key/ae04ffdaa9b9ff33beaf70c6534be916/"   class=""><span>Gestion de réécriture d'URL</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/catalog_search/index/key/eb00092d7ac0016fbb4f586b1e4b268b/"   class=""><span>Termes de recherche</span></a>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Avis et évaluations</span></a>
+<ul >
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level2"> <a href="#"  onclick="return false" class=""><span>Avis du client</span></a>
+<ul >
+<li  class="  level3"> <a href="https://www.editions-dangles.fr/index.php/admin/catalog_product_review/pending/key/788d15c8f6328a9d2de7afa20a28cdaa/"   class=""><span>Avis en attente</span></a>
+</li>
+<li  class="  last level3"> <a href="https://www.editions-dangles.fr/index.php/admin/catalog_product_review/index/key/16f515cb6023f9e36ba69341513d9d30/"   class=""><span>Tous les avis</span></a>
+</li>
+</ul>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/rating/index/key/3bcf4f2798a2436b80177aa9924eea83/"   class=""><span>Gérer les Notes</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Étiquettes</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/tag/index/key/fdd7dab72148d887a02fa5fc5e1e6567/"   class=""><span>Tous les tags</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/tag/pending/key/e493690861f397bf09aa0f0de6b9d63e/"   class=""><span>Tags en attente</span></a>
+</li>
+</ul>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/sitemap/index/key/1c312b05b0164e615c6b3cb9f5f4a522/"   class=""><span>Sitemap Google</span></a>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent last level1"> <a href="#"  onclick="return false" class=""><span>Téléchargements</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/attachment_file/index/key/05da1ab8242825cfa3bec4de458b2876/"   class=""><span>Files</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/attachment_download/index/key/aa1252d8bac8d9ff14acfdbeef3f3342/"   class=""><span>Téléchargements</span></a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level0"> <a href="#"  onclick="return false" class=""><span>Mobile</span></a>
+<ul >
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/mobile/index/key/5ed505dbca5a9d73acd1e2ce21030f99/"   class=""><span>Gérer les applications</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/mobile/history/key/6409ef0fa5aa2d42bb3fe75494d1e1ea/"   class=""><span>Historique de la soumission</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/mobile/template/key/83edb15a299000642d82e51b8955ed2e/"   class=""><span>Modèles messages</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/mobile/queue/key/fb39d4a734b58a6ac98277442ce3a3a1/"   class=""><span>File d'attente messages</span></a>
+</li>
+<li  class="  last level1"> <a href="https://www.editions-dangles.fr/index.php/admin/admin_application/index/key/3af17e5be212393a1f419479fdcc2223/"   class=""><span>Admin Application Settings</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level0"> <a href="#"  onclick="return false" class=""><span>Clients</span></a>
+<ul >
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/customer/index/key/89aa898b82cddb2bbd2fdc906be2c019/"   class=""><span>Gérer les utilisateurs</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/customer_group/index/key/7399f20c07d5e818885ead90ad9d8276/"   class=""><span>Groupes de clients</span></a>
+</li>
+<li  class="  last level1"> <a href="https://www.editions-dangles.fr/index.php/admin/customer_online/index/key/171bf1ce781fe590015ecc452e01e8ca/"   class=""><span>Utilisateurs en ligne</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level0"> <a href="#"  onclick="return false" class=""><span>Bassiwebs Easy Banner Slider</span></a>
+<ul >
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/imageslider/index/key/6319b9cd0f93b793d67b07ae3517be8d/"   class=""><span>Banner Manager</span></a>
+</li>
+<li  class="  last level1"> <a href="https://www.editions-dangles.fr/index.php/admin/system_config/edit/section/imageslider/key/35ba4ec241c3406a61f26fc21f85d1c4/"   class=""><span>Configuration Settings</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level0"> <a href="#"  onclick="return false" class=""><span>Promotions</span></a>
+<ul >
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/promo_catalog/index/key/39b80f36c90f2f4a0c1f43a5b2b64cab/"   class=""><span>Règles de prix du catalogue</span></a>
+</li>
+<li  class="  last level1"> <a href="https://www.editions-dangles.fr/index.php/admin/promo_quote/index/key/b4839ccc0583f19eae60a3bcfd5cc23a/"   class=""><span>Règles de prix du panier</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level0"> <a href="#"  onclick="return false" class=""><span>Bulletin d'information</span></a>
+<ul >
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/newsletter_template/index/key/5094de8e220e98bee0e4727467754345/"   class=""><span>Modèles de newsletter</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/newsletter_queue/index/key/f7e5a1ceabd505ed2acec3746eb0ba5f/"   class=""><span>Fille d'attente de la newsletter</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/newsletter_subscriber/index/key/7e45d1a6bf43091ae4684f05c05d6411/"   class=""><span>Abonnés à la newsletter</span></a>
+</li>
+<li  class="  last level1"> <a href="https://www.editions-dangles.fr/index.php/admin/newsletter_problem/index/key/8f679b05d0af9559ef01b94e5b6c1d24/"   class=""><span>Rapport des problèmes de la newsletter</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level0"> <a href="#"  onclick="return false" class=""><span>CMS</span></a>
+<ul >
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/events_events/index/key/9e11d4a61be4704e477f82277b4fde73/"   class=""><span>Events</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/cms_page/index/key/2eefe1fbc7d25be255da00ebe1be35f5/"   class=""><span>Pages</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/cms_block/index/key/e749606fd601150f9b7aa511f0c79e2c/"   class=""><span>Blocs statiques</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/widget_instance/index/key/d2cbfd4bec1bed11d1de77c9bb1019d6/"   class=""><span>Widgets</span></a>
+</li>
+<li  class="  last level1"> <a href="https://www.editions-dangles.fr/index.php/admin/poll/index/key/7560df5fcf9128cd347d47ed7b2a9272/"   class=""><span>Sondages</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level0"> <a href="#"  onclick="return false" class=""><span>Blog</span></a>
+<ul >
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/awblog_manage_blog/new/key/94cc24cb2583b7e4c426e7839821ef0b/"   class=""><span>Ajouter un article</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/awblog_manage_blog/index/key/4dec0ffdabee1cfad1884a3434980cc0/"   class=""><span>Posts</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/awblog_manage_comment/index/key/83bdd9b7cdb3cfe4aece93b280b88061/"   class=""><span>Commentaires</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/awblog_manage_cat/index/key/0d5d537717069c957d2fd0835d97760f/"   class=""><span>Cat&eacute;gories</span></a>
+</li>
+<li  class="  last level1"> <a href="https://www.editions-dangles.fr/index.php/admin/system_config/edit/section/blog/key/35ba4ec241c3406a61f26fc21f85d1c4/"   class=""><span>Options</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level0"> <a href="#"  onclick="return false" class=""><span>Rapports</span></a>
+<ul >
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Ventes</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_sales/sales/key/bf0d805e480cef6e641d8da99d79bf4e/"   class=""><span>Commandes</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_sales/tax/key/70e43da9a7194fdfb78d7dbaf45bb995/"   class=""><span>Taxe</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_sales/invoiced/key/12303e40768d5832c4fa039bf93845e4/"   class=""><span>Facturé</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_sales/shipping/key/5aabee40bc9d73f56391112c722a7069/"   class=""><span>Envoi</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_sales/refunded/key/00c4e6106c4e83fe78a2d89b7dd7f4bf/"   class=""><span>Remboursements</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_sales/coupons/key/6f38184f169db090d87244bc164db182/"   class=""><span>Coupons</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/paypal_reports/index/key/0a827bdd61cc885381c19d1e6a7bba71/"   class=""><span>Rapports sur le règlement PayPal</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Panier</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_shopcart/product/key/e999441515cc8776b837629ddae5ad89/"   class=""><span>Produits dans les paniers</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_shopcart/abandoned/key/a3124d4f4b5749ed103ce80260292241/"   class=""><span>Paniers abandonnés</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Produits</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_sales/bestsellers/key/25b879c352cf8755ac4879199a21551e/"   class=""><span>Meilleures ventes</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_product/sold/key/de8ead470aba1381f671d681c9d7b05f/"   class=""><span>Produits commandés</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_product/viewed/key/487c6b9dd03e252db3365ba1069483be/"   class=""><span>Les plus vus</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_product/lowstock/key/ff394698a37442e161753f9c2d03328b/"   class=""><span>Stock bas</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_product/downloads/key/0661e59c56241bba648b5f5c2e5df043/"   class=""><span>Téléchargements</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Clients</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_customer/accounts/key/cc5ae6961ef90e84669ed16b63286bf3/"   class=""><span>Nouveaux comptes</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_customer/totals/key/c4a8b8374bd2ee49bba19b07575e22ac/"   class=""><span>Clients par total des commandes</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_customer/orders/key/98dca9c196480f6f8c56cca12f75fbb5/"   class=""><span>Clients par nombre de commandes</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Étiquettes</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_tag/customer/key/abd78f86aa33ccbda000542e4e72a453/"   class=""><span>Clients</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_tag/product/key/7d26ac53d3676bab8ec11f1a1c8594b5/"   class=""><span>Produits</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_tag/popular/key/c33867f27b4a5aff8b5713bc9241fb66/"   class=""><span>Populaire</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Commentaires</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_review/customer/key/2c047bcfba5385761254641089e4a0ab/"   class=""><span>Avis des clients</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/report_review/product/key/de558c6a1fcb6ad3dc89ae897141b87d/"   class=""><span>Avis sur les produits</span></a>
+</li>
+</ul>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/report/search/key/c53b62b58b4cc6aa44ce70924217c28b/"   class=""><span>Termes de recherche</span></a>
+</li>
+<li  class="  last level1"> <a href="https://www.editions-dangles.fr/index.php/admin/report_statistics/index/key/e9e8cceecdda8fd394018f829425a5fe/"   class=""><span>Rafraîchir les statistiques</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level0"> <a href="#"  onclick="return false" class=""><span>Système</span></a>
+<ul >
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/myform/index/key/5cdbb2d2ed01e5a13e7f63cecf884eda/"   class=""><span>Les Paramètres du module SendinBlue</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/system_account/index/key/ef5f8fa8c02f5beb25742d748e7bbf1d/"   class=""><span>Mon compte</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/notification/index/key/5eae7b14b7d3104b4b91905d7afefeeb/"   class=""><span>Notification</span></a>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Outils</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/system_backup/index/key/bede89a0ea005dc94086084e661e0f78/"   class=""><span>Sauvegardes</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/smtp_log/index/key/c606a50f3f6f5f23bb809180a748a5fd/"   class=""><span>SMTPPro - Messages envoyés</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/compiler_process/index/key/f70ee2c66cb8cf7ef2505f5b8ae83583/"   class=""><span>Compilation</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Services Web</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/api_user/index/key/ec7922bd1812f6034edc477ab5c995ea/"   class=""><span>SOAP/XML-RPC - Utilisateurs</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/api_role/index/key/a58f71b1b79acebc05f3ae1adab863be/"   class=""><span>SOAP/XML-RPC - Rôles</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/api2_role/index/key/18254478e3b432787bfe5549d0c22549/"   class=""><span>REST - Roles</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/api2_attribute/index/key/dae948f64a7b9b682bbe8fbf6c11b621/"   class=""><span>REST - Attributes</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/oauth_consumer/index/key/e58a6da6db80195f8af6ae01ff0c3d3c/"   class=""><span>REST - Consommateurs OAuth</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/oauth_authorizedTokens/index/key/ff3103da232b2a825f51fd9100326d5f/"   class=""><span>REST - Jetons OAuth autorisés</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/oauth_admin_token/index/key/678b03422360dd5375027fd4ce736473/"   class=""><span>REST - Mes applications</span></a>
+</li>
+</ul>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/system_design/index/key/bc3253b0d3acd745498673578d1644cf/"   class=""><span>Design</span></a>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Import/Export</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/import/index/key/bbab293f6ad38458a7814963f95f545a/"   class=""><span>Importer</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/export/index/key/21f6da3de242551f7db78e26e905431e/"   class=""><span>Exporter</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/system_convert_gui/index/key/ebf5306448cb1e6a3ce4711f81fe0a68/"   class=""><span>Dataflow - Profils</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/system_convert_profile/index/key/38b719ebaa06a2446dfcf5e531604df3/"   class=""><span>Dataflow - Profils avancés</span></a>
+</li>
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/productimportexport/index/key/e2078e6754aff32c10ff36888448ac47/"   class=""><span>CommerceExtensions Product Import/Export</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/categoriesimportexport/index/key/b51dc0cf3791341f0bd83c1ca7f71351/"   class=""><span>CommerceExtensions Category Import/Export</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="https://www.editions-dangles.fr/index.php/admin/system_currency/index/key/85d37c9321545f0a301fcf3c12284abf/"   class=""><span>Gérer les devises</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/system_currency/index/key/85d37c9321545f0a301fcf3c12284abf/"   class=""><span>Taux</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/system_currencysymbol/index/key/68e42ff0767aa1af6cfea26a89de9c5e/"   class=""><span>Symboles</span></a>
+</li>
+</ul>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/system_email_template/index/key/cc4c4901b73b384660a54114a3dc3723/"   class=""><span>Emails de transaction</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/system_variable/index/key/b73b5a31fa4e9ada77558fc1bb9bca01/"   class=""><span>Variables sur mesure</span></a>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Filesystem</span></a>
+<ul >
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/filesystem/adminhtml_filesystem/index/key/28c22f4e92c79110b11963a3ba5f9eb0/"   class=""><span>IDE</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Autorisations</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/permissions_user/index/key/11f45142fa6b588c9ea463cf1fa6258c/"   class=""><span>Utilisateurs</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/permissions_role/index/key/10385f925391c8d8fe63cc8a1b805648/"   class=""><span>Rôles</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level1"> <a href="#"  onclick="return false" class=""><span>Magento Connect</span></a>
+<ul >
+<li  class="  level2"> <a href="https://www.editions-dangles.fr/index.php/admin/extension_local/index/key/a336851e9bdabe8f669fce364541963f/"   class=""><span>Magento Connect Manager</span></a>
+</li>
+<li  class="  last level2"> <a href="https://www.editions-dangles.fr/index.php/admin/extension_custom/index/key/77dd56743fb99e62b9d8d7b2327e89eb/"   class=""><span>Extensions du paquet</span></a>
+</li>
+</ul>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/cache/index/key/6cd9d87406b77645ae034076aec21552/"   class=""><span>Gestion du cache</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/process/list/key/0456ce7f59dee71c02a33b7b892aa0ff/"   class=""><span>Gestion index</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/system_store/index/key/63b6f5588eaa3495234c902b5e443ba0/"   class=""><span>Gérer boutiques</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/admin/sales_order_status/index/key/00fa0898fb516b3eb88c5f7d295aa32b/"   class=""><span>Statuts de la commande</span></a>
+</li>
+<li  class="  last level1"> <a href="https://www.editions-dangles.fr/index.php/admin/system_config/index/key/4f5b66a4a47980ee13f6d6965b77729e/"   class=""><span>Configuration</span></a>
+</li>
+</ul>
+</li>
+<li onmouseover="Element.addClassName(this,'over')" onmouseout="Element.removeClassName(this,'over')" class="  parent level0"> <a href="#"  onclick="return false" class=""><span>Author_Profile</span></a>
+<ul >
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/bannerslider/adminhtml_bannerslider/index/key/dc7928bddc16ed7da272e2c128a4d5d2/"   class=""><span>Manage Profile</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/bannerslider/adminhtml_videos/index/key/b2a0b2be6db77fe9ad920815f4000788/"   class=""><span>Manage Videos</span></a>
+</li>
+<li  class="  level1"> <a href="https://www.editions-dangles.fr/index.php/bannerslider/adminhtml_pdf/index/key/140bd3878e524d92020a0f223af984e8/"   class=""><span>Manage Press Pdf</span></a>
+</li>
+<li  class="  last level1"> <a href="https://www.editions-dangles.fr/index.php/bannerslider/adminhtml_event/index/key/bacfbe0ee1273769a06b130dbedf8ef2/"   class=""><span>Manage Events</span></a>
+</li>
+</ul>
+</li>
+</ul>
+<!-- menu end -->
+
+    <a id="page-help-link" href="http://www.magentocommerce.com/gethelp/fr_FR/Magpleasure_Filesystem/adminhtml_filesystem/index/">Obtenir de l'aide pour cette page</a>
+    <script type="text/javascript">$('page-help-link').target = 'magento_page_help'</script>
+
+</div>
+        </div>
+        <div class="notification-global">
+        
+    <span class="f-right">
+                Vous avez <span class="critical"><strong>1</strong> critique</span> et <strong>5</strong> notice message(s) non lu(s). <a href="https://www.editions-dangles.fr/index.php/admin/notification/index/key/5eae7b14b7d3104b4b91905d7afefeeb/">Aller à la boite de réception</a>
+    </span>
+            <strong class="label">
+    
+    Dernier message:</strong> Increase Conversions with a Free Site Assessment            <a href="http://bit.ly/2WxJ6LQ" onclick="this.target='_blank';">Lire détails</a>
+    </div>
+<div class="notification-global">
+    <strong>Un des index ou plus n'est pas à jour:</strong>
+    Prix des Produits, Catalogue Réécritures URL, Produits de la Catégorie, Recherche de l'index du catalogue, Données d'agrégation des étiquettes.
+    Cliquez ici pour aller à la <a href="https://www.editions-dangles.fr/index.php/admin/process/list/key/0456ce7f59dee71c02a33b7b892aa0ff/">Gestion des index</a> et reconstruire les index requis.</div>
+
+
+
+
+        <div class="middle" id="anchor-content">
+            <div id="page:main-container">
+                            <div id="messages"></div>
+                
+<div class="ide">
+    <div class="tree">
+        <h2>Système de fichier</h2>
+        
+<div class="file-tree-wrapper">
+    <div class="file-tree" id="file_tree"></div>
+</div>
+
+<script type="text/javascript">        
+    jQuery(document).ready( function() {
+        jQuery('#file_tree').fileTree({
+            root: '/var/www/vhosts/editions-dangles.fr/httpdocs/',
+            script: 'https://www.editions-dangles.fr/index.php/filesystem/adminhtml_filesystem/tree/isAjax/1/form_key/OrKaWfs9npM67O50/key/25a61473b4ea8ca91555fe329ee9d4b7/',
+            expandSpeed: 200,
+            collapseSpeed: 200
+        }, function(file) {            
+            var url = 'https://www.editions-dangles.fr/index.php/filesystem/adminhtml_filesystem/load/fn/{{filename}}/key/2fad759be667f4ff440fd802dffbe945/';            
+            openFile(url, file);
+        });
+    });
+</script>    </div>
+    <div class="editor">
+        <div class="path" id="path">    
+       
+</div>
+<textarea id="edit_area"></textarea>
+
+<script type="text/javascript" src="https://www.editions-dangles.fr/js/editarea/edit_area_full.js"></script>
+
+<script language="javascript" type="text/javascript">
+       
+_closeUrl = 'https://www.editions-dangles.fr/index.php/filesystem/adminhtml_filesystem/close/file/{{file}}/key/dea632dabb93955681b07faa2fa0f328/';
+_saveUrl = 'https://www.editions-dangles.fr/index.php/filesystem/adminhtml_filesystem/save/file/{{file}}/key/bd07fd0134840f1907c2fc9735f147e5/';
+_filesUrl = 'https://www.editions-dangles.fr/index.php/filesystem/adminhtml_filesystem/files/file/{{file}}/key/f5ba8fcdf32c4628f52c9ad281fe6f89/';
+       
+editAreaLoader.init({
+	id : "edit_area",
+    syntax: "css",
+    syntax_selection_allow: "css,html,js,php,python,xml,sql",
+    start_highlight: true,
+    toolbar: "save, |,  search, go_to_line, |, undo, redo, |, select_font, |, syntax_selection, |, change_smooth_selection, highlight, reset_highlight, |, help",
+    save_callback: "saveFile",
+    EA_file_switch_on_callback: "switchOn",
+    EA_file_close_callback: "closeFile",
+    replace_tab_by_spaces: 4,
+    allow_resize: true,
+    EA_load_callback: "getFiles"
+});
+
+</script>
+
+    </div>
+</div>
+
+                        </div>
+        </div>
+        <div class="footer">
+            <p class="bug-report">
+    <a href="http://www.magentocommerce.com/bug-tracking" id="footer_bug_tracking">Aidez-nous à maintenir le bon fonctionnement de Magento: signalez tout dysfonctionnement.</a><br/>
+    Interface locale: <select name="locale" id="interface_locale" class="" title="Langue de l'Interface" style="width:200px"><option value="af_ZA" >Afrikaans (Suid-Afrika) / afrikaans (Afrique du Sud)</option><option value="az_AZ" >Azərbaycanca (Azərbaycan) / azéri (Azerbaïdjan)</option><option value="id_ID" >Bahasa Indonesia (Indonesia) / indonésien (Indonésie)</option><option value="ms_MY" >Bahasa Melayu (Malaysia) / malais (Malaisie)</option><option value="bs_BA" >Bosanski (Bosna i Hercegovina) / bosniaque (Bosnie-Herzégovine)</option><option value="ca_ES" >Català (Espanya) / catalan (Espagne)</option><option value="cy_GB" >Cymraeg (Prydain Fawr) / gallois (Royaume-Uni)</option><option value="da_DK" >Dansk (Danmark) / danois (Danemark)</option><option value="de_DE" >Deutsch (Deutschland) / allemand (Allemagne)</option><option value="de_CH" >Deutsch (Schweiz) / allemand (Suisse)</option><option value="de_AT" >Deutsch (Österreich) / allemand (Autriche)</option><option value="et_EE" >Eesti (Eesti) / estonien (Estonie)</option><option value="en_AU" >English (Australia) / anglais (Australie)</option><option value="en_CA" >English (Canada) / anglais (Canada)</option><option value="en_IE" >English (Ireland) / anglais (Irlande)</option><option value="en_NZ" >English (New Zealand) / anglais (Nouvelle-Zélande)</option><option value="en_GB" >English (United Kingdom) / anglais (Royaume-Uni)</option><option value="en_US" >English (United States) / anglais (États-Unis)</option><option value="es_AR" >Español (Argentina) / espagnol (Argentine)</option><option value="es_CL" >Español (Chile) / espagnol (Chili)</option><option value="es_CO" >Español (Colombia) / espagnol (Colombie)</option><option value="es_CR" >Español (Costa Rica) / espagnol (Costa Rica)</option><option value="es_ES" >Español (España) / espagnol (Espagne)</option><option value="es_MX" >Español (México) / espagnol (Mexique)</option><option value="es_PA" >Español (Panamá) / espagnol (Panama)</option><option value="es_PE" >Español (Perú) / espagnol (Pérou)</option><option value="es_VE" >Español (Venezuela) / espagnol (Venezuela)</option><option value="fil_PH" >Filipino (Pilipinas) / filipino (Philippines)</option><option value="fr_CA" >Français (Canada) / français (Canada)</option><option value="fr_FR" selected="selected" >Français (France) / français (France)</option><option value="gl_ES" >Galego (España) / galicien (Espagne)</option><option value="hr_HR" >Hrvatski (Hrvatska) / croate (Croatie)</option><option value="it_IT" >Italiano (Italia) / italien (Italie)</option><option value="it_CH" >Italiano (Svizzera) / italien (Suisse)</option><option value="sw_KE" >Kiswahili (Kenya) / swahili (Kenya)</option><option value="lv_LV" >Latviešu (Latvija) / letton (Lettonie)</option><option value="lt_LT" >Lietuvių (Lietuva) / lituanien (Lituanie)</option><option value="hu_HU" >Magyar (Magyarország) / hongrois (Hongrie)</option><option value="nl_NL" >Nederlands (Nederland) / néerlandais (Pays-Bas)</option><option value="nb_NO" >Norsk Bokmål (Norge) / norvégien bokmål (Norvège)</option><option value="nn_NO" >Nynorsk (Noreg) / norvégien nynorsk (Norvège)</option><option value="pl_PL" >Polski (Polska) / polonais (Pologne)</option><option value="pt_BR" >Português (Brasil) / portugais (Brésil)</option><option value="pt_PT" >Português (Portugal) / portugais (Portugal)</option><option value="ro_RO" >Română (România) / roumain (Roumanie)</option><option value="sq_AL" >Shqipe (Shqipëria) / albanais (Albanie)</option><option value="sk_SK" >Slovenčina (Slovenská republika) / slovaque (Slovaquie)</option><option value="sl_SI" >Slovenščina (Slovenija) / slovène (Slovénie)</option><option value="fi_FI" >Suomi (Suomi) / finnois (Finlande)</option><option value="sv_SE" >Svenska (Sverige) / suédois (Suède)</option><option value="vi_VN" >Tiếng Việt (Việt Nam) / vietnamien (Viêt Nam)</option><option value="tr_TR" >Türkçe (Türkiye) / turc (Turquie)</option><option value="is_IS" >íslenska (Ísland) / islandais (Islande)</option><option value="cs_CZ" >čeština (Česká republika) / tchèque (République tchèque)</option><option value="el_GR" >Ελληνικά (Ελλάδα) / grec (Grèce)</option><option value="sr_RS" >Српски (Србија) / serbe (Serbie)</option><option value="be_BY" >беларуская (Беларусь) / biélorusse (Bélarus)</option><option value="bg_BG" >български (България) / bulgare (Bulgarie)</option><option value="mk_MK" >македонски (Македонија) / macédonien (Macédoine)</option><option value="mn_MN" >монгол (Монгол улс) / mongol (Mongolie)</option><option value="ru_RU" >русский (Россия) / russe (Russie)</option><option value="uk_UA" >українська (Україна) / ukrainien (Ukraine)</option><option value="he_IL" >עברית (ישראל) / hébreu (Israël)</option><option value="ar_DZ" >العربية (الجزائر) / arabe (Algérie)</option><option value="ar_KW" >العربية (الكويت) / arabe (Koweït)</option><option value="ar_MA" >العربية (المغرب) / arabe (Maroc)</option><option value="ar_SA" >العربية (المملكة العربية السعودية) / arabe (Arabie saoudite)</option><option value="ar_EG" >العربية (مصر) / arabe (Égypte)</option><option value="fa_IR" >فارسی (ایران) / persan (Iran)</option><option value="hi_IN" >हिन्दी (भारत) / hindi (Inde)</option><option value="bn_BD" >বাংলা (বাংলাদেশ) / bengali (Bangladesh)</option><option value="gu_IN" >ગુજરાતી (ભારત) / goudjarâtî (Inde)</option><option value="th_TH" >ไทย (ไทย) / thaï (Thaïlande)</option><option value="lo_LA" >ລາວ (ລາວ) / lao (Laos)</option><option value="ka_GE" >ქართული (საქართველო) / géorgien (Géorgie)</option><option value="km_KH" >ភាសាខ្មែរ (កម្ពុជា) / khmer (Cambodge)</option><option value="zh_CN" >中文 (中国) / chinois (Chine)</option><option value="zh_HK" >中文 (中華人民共和國香港特別行政區) / chinois (R.A.S. chinoise de Hong Kong)</option><option value="zh_TW" >中文 (台灣) / chinois (Taïwan)</option><option value="ja_JP" >日本語 (日本) / japonais (Japon)</option><option value="ko_KR" >한국어 (대한민국) / coréen (Corée du Sud)</option></select></p>
+<p class="legality">
+    <a href="http://magento.com/resources/technical" id="footer_connect">Connexion avec Magento Community</a><br/>
+    <img src="https://www.editions-dangles.fr/skin/adminhtml/default/default/images/varien_logo.gif" class="v-middle" alt="" />&nbsp;&nbsp;
+    Magento&trade; est une marque déposée de Magento Inc.<br/>Copyright &copy; 2019 Magento Inc.</p>
+Magento ver. 1.9.3.3<script type="text/javascript">
+ jQuery("table.form-list").on("click",'.remove_field', function(e){ //user click on remove text
+        e.preventDefault(); 
+		jQuery(this).parent().parent('tr').remove();
+    })
+    $('footer_bug_tracking').target = 'Varien_External';
+    $('footer_connect').target = 'Varien_External';
+    function setInterfaceLanguage(evt){
+        var elem = Event.element(evt);
+        if(elem){
+            setLocation('https://www.editions-dangles.fr/index.php/admin/index/changeLocale/key/354a05c54ff025f1d6d60dbf32f2423b/locale/'+elem.value+'/uenc/aHR0cHM6Ly93d3cuZWRpdGlvbnMtZGFuZ2xlcy5mci9pbmRleC5waHAvZmlsZXN5c3RlbS9hZG1pbmh0bWxfZmlsZXN5c3RlbS9pbmRleC9rZXkvMjhjMjJmNGU5MmM3OTExMGIxMTk2M2EzYmE1ZjllYjAv');
+        }
+    }
+    Event.observe('interface_locale', 'change', setInterfaceLanguage)
+</script>
+        </div>
+    </div>
+        <div id="loading-mask" style="display:none">
+    <p class="loader" id="loading_mask_loader"><img src="https://www.editions-dangles.fr/skin/adminhtml/default/default/images/ajax-loader-tr.gif" alt="Chargement..."/><br/>Veuillez patienter...</p>
+</div>
+
+
+<script>
+    document.observe("dom:loaded", function() {
+        if ($$('.amasty-info-block').length !== 0
+            && $$('.content-header table tbody tr td h3').length !== 0)
+        {
+            var container = $$('.content-header table tbody tr td h3')[0];
+            var href = 'https://amasty.com?utm_source=extension&utm_medium=backend&utm_campaign=amasty_logo';
+            if($$('.amasty-user-guide a').length !== 0) {
+                href += $$('.amasty-user-guide a')[0].href.split('userguide').last();
+            }
+
+            container.append('   by ');
+            container.insert({
+                after: '<a class="amasty-logo"  target="_blank" title="Amasty" href="' + href + '">'  +
+                '<img src="https://www.editions-dangles.fr/skin/adminhtml/default/default/images/ambase/amasty_logo.svg"/></a>'
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

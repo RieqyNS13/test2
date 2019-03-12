@@ -141,20 +141,42 @@
                     <div 
                     v-for="(subAspek, subAspek_i) in aspek.sub_aspek_nilai"
                     :key="subAspek_i">
-                     <v-text-field
+                      <div v-if="aspek.name.includes('Non Teknis')">
+                      <v-text-field 
+                       hint="0-100"
+                      :label="subAspek.name"
+                      v-model="subAspek.nilai"
+                      >
+                      </v-text-field>
+                    </div>
+                    <div v-else>
+                      <v-text-field v-if="subAspek.is_custom"
+                        prepend-icon="edit"
+                        @click:prepend="changeNilaiName(aspek_i, subAspek_i)"
+                        hint="0-100"
+                        :label="subAspek.name"
+                        v-model="subAspek.nilai"
+                        append-outer-icon="delete"
+                        @click:append-outer="deleteNilai(aspek_i, subAspek_i)"
+                      ></v-text-field>
+                     <v-text-field v-else
+                      prepend-icon="edit"
+                      @click:prepend="changeNilaiName(aspek_i, subAspek_i)"
                       hint="0-100"
                       :label="subAspek.name"
                       v-model="subAspek.nilai"
-
                     ></v-text-field>
+                   </div>
                   </div>
 
                   </v-card-text>
                 </v-card>
               </v-tab-item>
             </v-tabs>
-        </v-card-text>
 
+            <v-btn v-if="active==1" @click="dialog3=true">Tambah</v-btn>
+
+        </v-card-text>
         <v-divider></v-divider>
 
         <v-card-actions>
@@ -168,6 +190,97 @@
           <v-btn
             flat
             @click="dialog = false"
+          >
+           Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+
+ <v-dialog
+      v-model="dialog2"
+      width="400"
+    >
+     <v-card>
+        <v-card-title
+          primary-title
+        >
+          Edit Nama Nilai
+        </v-card-title>
+
+        <v-card-text>
+         <v-layout>
+          <v-flex xs12>
+            <v-text-field v-if="penilaian_edit.aspek_index!=null"
+              label="Nama baru"
+              v-model="penilaian[penilaian_edit.aspek_index].sub_aspek_nilai[penilaian_edit.subAspek_index].name"
+
+              ></v-text-field>
+          
+          </v-flex>
+         </v-layout>
+          
+          
+        </v-card-text>
+
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+           <v-btn
+            color="primary"
+            @click="dialog2 = false"
+          >
+           Simpan 
+          </v-btn>
+          <v-btn
+            flat
+            @click="discardChange"
+          >
+           Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+<!--dialog tambah nilai-->
+<v-dialog
+      v-model="dialog3"
+      width="400"
+    >
+     <v-card>
+        <v-card-title
+          primary-title
+        >
+          Tambah Nilai
+        </v-card-title>
+
+        <v-card-text>
+         <v-layout>
+          <v-flex xs12>
+            <v-text-field
+              label="Nama nilai baru"
+              v-model="namaNilaiBaru"
+              ></v-text-field>
+          
+          </v-flex>
+         </v-layout>
+          
+          
+        </v-card-text>
+
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+           <v-btn
+            color="primary"
+            @click="tambahNilai"
+          >
+           Tambah Nilai 
+          </v-btn>
+          <v-btn
+            flat
+            @click="dialog3 = false"
           >
            Close
           </v-btn>
@@ -204,9 +317,17 @@
             items:[],
             csrf:document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             dialog:false,
+            dialog2:false,
+            dialog3:false,
             active:null,
             text:'asu',
-            penilaian:null
+            penilaian:null,
+            penilaian_edit:{
+              aspek_index:null,
+              subAspek_index:null,
+              old:null
+            },
+            namaNilaiBaru:null,
           }
         },
         mounted() {
@@ -229,6 +350,46 @@
           
         },
          methods: {
+          tambahNilai:function(){
+            this.penilaian[this.active].sub_aspek_nilai.push({name:this.namaNilaiBaru,nilai:0,is_custom:1});
+            this.namaNilaiBaru=null;
+            this.dialog3= false;
+            //alert(this.active);
+          },
+          deleteNilai:function(aspek_index, subAspek_index){
+            Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+              if (result.value) {
+                let hapus=this.penilaian[aspek_index].sub_aspek_nilai.splice(subAspek_index,1);
+                // Swal.fire(
+                //   'Deleted!',
+                //   'Nilai telah dihapus',
+                //   'success'
+                // )
+              }
+            });
+          },
+          changeNilaiName:function(aspek_index, subAspek_index){
+            //alert(this.penilaian[0].sub_aspek_nilai[0]);
+            this.penilaian_edit.aspek_index=aspek_index;
+            this.penilaian_edit.subAspek_index=subAspek_index;
+            this.penilaian_edit.old = this.penilaian[aspek_index].sub_aspek_nilai[subAspek_index].name;
+            this.dialog2=true;
+          },
+          discardChange:function(){
+            this.penilaian[this.penilaian_edit.aspek_index].sub_aspek_nilai[this.penilaian_edit.subAspek_index].name=this.penilaian_edit.old;
+            this.dialog2 = false
+          },
+          submitEditNilaiName:function(){
+              this.dialog2=false;
+          },
           getNilaiPesertaMagang:function(magang){
             console.log(magang);
 

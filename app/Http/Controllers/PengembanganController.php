@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-
+use App\Magang;
 use App\Surat;
-class SuratController extends Controller
+use App\Biodata;
+use App\User;
+use App\Konstruktor;
+class PengembanganController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +17,7 @@ class SuratController extends Controller
      */
     public function index()
     {
-        $data['magang'] = Magang::with(['konstruktor.user','pembimbing_asal'])->where('is_pengembangan',true)->where('user_id', auth()->user()->id)->first();
-        $data['biodata'] = Biodata::where('user_id',auth()->user()->id)->first();
-        $data['konstruktor'] = User::whereHas('roles', function($query){
-            $query->where('name','konstruktor');
-        })->get();
-        //$data['penilaian'] = $this->getnilai(Magang::);
-        return view('pages.magang', $data);
+        //
     }
 
     /**
@@ -88,13 +84,5 @@ class SuratController extends Controller
     public function destroy($id)
     {
         //
-    }
-   public function viewpdf(Request $request){
-        $request->validate([
-            'filename' => 'required'
-        ]);
-        $path = storage_path('app/'.$request->input('filename'));
-        if(!file_exists($path))$path = storage_path($request->input('filename'));
-        return response()->file($path);
     }
 }

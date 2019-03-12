@@ -18,6 +18,7 @@ class CreatePenilaiansTable extends Migration
             $table->unsignedInteger('magang_id');
             $table->unsignedInteger('sub_aspek_nilai_id');
             $table->float('nilai',8,2);
+            $table->string('custom_name')->nullable();
             $table->timestamps();
 
             $table->foreign('magang_id')->references('id')->on('magangs')->onDelete('cascade');

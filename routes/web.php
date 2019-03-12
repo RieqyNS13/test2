@@ -36,8 +36,8 @@ Route::middleware(['auth', 'admin'])->namespace('Admin')->prefix('admin')->group
 
 		Route::get('/penilaian/downloadPdf/{magang_id}', 'PenilaianController@downloadPdf');
 		Route::get('/penilaian/load', 'PenilaianController@load');
+
 		Route::resource('/penilaian', 'PenilaianController');
-		
 		Route::post('/penilaian/validasi', 'PenilaianController@validasi');
 		Route::post('/konstruktor/addtomagang', 'KonstruktorController@addtomagang');
 
@@ -54,17 +54,31 @@ Route::middleware(['auth', 'konstruktor'])->namespace('Konstruktor')->prefix('ko
 
 });
 
+Route::middleware(['auth','auth'])->group(function(){
+	Route::get('/penilaian/downloadPdf/{magang_id}', 'PenilaianController@downloadPdf');
+	Route::get('/magang/downloadSertifikat/{magang_id}', 'MagangController@downloadSertifikat');
 
-Route::get('/penilaian/downloadPdf/{magang_id}', 'PenilaianController@downloadPdf')->middleware(['auth','user']);;
-Route::get('/magang/downloadSertifikat/{magang_id}', 'MagangController@downloadSertifikat')->middleware(['auth','user']);;
+	//magang section//
+	Route::resource('/magang','MagangController'); //resource harus paling atas
+	Route::post('/magang/addkonstruktor','MagangController@addkonstruktor');
+	Route::resource('/biodata','BiodataController');
+	Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/magang','MagangController')->middleware(['auth','user']);
-Route::post('/magang/addkonstruktor','MagangController@addkonstruktor')->middleware(['auth','user']);
-Route::resource('/biodata','BiodataController')->middleware(['auth','user']);
+	//pengembangan section//
+	Route::resource('/pengembangan','PengembanganController');//resource harus paling atas
+
+});
+
+// Route::get('/penilaian/downloadPdf/{magang_id}', 'PenilaianController@downloadPdf')->middleware(['auth','user']);;
+// Route::get('/magang/downloadSertifikat/{magang_id}', 'MagangController@downloadSertifikat')->middleware(['auth','user']);;
+
+// Route::resource('/magang','MagangController')->middleware(['auth','user']);
+// Route::post('/magang/addkonstruktor','MagangController@addkonstruktor')->middleware(['auth','user']);
+// Route::resource('/biodata','BiodataController')->middleware(['auth','user']);
 
 
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware(['auth','user']);
+// Route::get('/home', 'HomeController@index')->name('home')->middleware(['auth','user']);
 // Route::get('/pengembangan', 'HomeController@pengembangan')->name('pengembangan');
 
 

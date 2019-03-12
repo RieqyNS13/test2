@@ -17,6 +17,7 @@ class CreateSubAspekNilaisTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('aspek_nilai_id');
             $table->string('name');
+            $table->boolean('is_custom')->default(false);
             $table->text('description')->nullable();
             $table->timestamps();
 
