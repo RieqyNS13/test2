@@ -86,8 +86,8 @@ table {
 	TAHUN {{date('Y')}}
 </div><br>
 <div id="identitas">
-Nama : {{$magang->users->name}}<br>
-<div class='a'>Asal : {{$magang->asal}}</div>
+Nama : {{$pengembangan->users->name}}<br>
+<div class='a'>Asal : {{$pengembangan->asal}}</div>
 </div><br>
 <table>
 	<tr>
@@ -126,7 +126,7 @@ Nama : {{$magang->users->name}}<br>
 Semarang, {{date('d').' '.month(date('m')).' '.date('Y')}}<br>
 <div class="a">Koordinator Pembimbing,</div><br><br><br><br>
 
-{{$magang->konstruktor ? $magang->konstruktor->user->name:'-'}}
+{{$pengembangan->konstruktor ? $pengembangan->konstruktor->user->name:'-'}}
 </div>
 </body>
 

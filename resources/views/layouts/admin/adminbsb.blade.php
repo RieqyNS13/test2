@@ -308,14 +308,14 @@
                             <span>Home</span>
                         </a>
                     </li>
-                   <li class="{{Request::is('admin/magang') || Request::is('admin/penilaian') ? 'active':''}}">
+                   <li class="{{Request::is('admin/pengembangan') || Request::is('admin/penilaian') ? 'active':''}}">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">swap_calls</i>
-                            <span>Magang</span>
+                            <span>Pengembangan</span>
                         </a>
                         <ul class="ml-menu">
-                            <li class="{{Request::is('admin/magang') ? 'active':''}}">
-                                <a href="{{url('admin/magang')}}">Peserta Magang</a>
+                            <li class="{{Request::is('admin/pengembangan') ? 'active':''}}">
+                                <a href="{{url('admin/pengembangan')}}">Peserta Pengembangan</a>
                             </li>
                             <li class="{{Request::is('admin/penilaian') ? 'active':''}}">
                                 <a href="{{url('admin/penilaian')}}">Penilaian</a>
@@ -329,19 +329,12 @@
                             <span>Konstruktor</span>
                         </a>
                     </li>
-                    {{-- <li class="{{Request::is('magang') ? 'active':''}}">
-                        <a href="{{url('admin/magang')}}">
+                    {{-- <li class="{{Request::is('pengembangan') ? 'active':''}}">
+                        <a href="{{url('admin/pengembangan')}}">
                             <i class="material-icons">text_fields</i>
-                            <span>Magang</span>
+                            <span>Pengembangan</span>
                         </a>
                     </li> --}}
-                    <li class="{{Request::is('pengembangan') ? 'active':''}}">
-                        <a href="{{url('pengembangan')}}">
-                            <i class="material-icons">layers</i>
-                            <span>Fasilitasi Pengembangan</span>
-                        </a>
-                    </li>
-                    
                 </ul>
             </div>
             <!-- #Menu -->

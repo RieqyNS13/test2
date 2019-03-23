@@ -12,7 +12,7 @@ class JenisSuratsTableSeeder extends Seeder
     public function run()
     {
         $jenisSurat = new JenisSurat;
-        $jenisSurat->name = "Surat Permohonan Magang";
+        $jenisSurat->name = "Surat Permohonan Pengembangan";
         $jenisSurat->save();
 
         $jenisSurat = new JenisSurat;

@@ -47,7 +47,7 @@
                 <template slot="expand" slot-scope="props">
                 <v-card flat>
                   <v-card-text>
-                      <v-form target="_blank" v-for="surat in magang.surats" :key="surat.id" method="POST" action="/admin/viewpdf">
+                      <v-form target="_blank" v-for="surat in pengembangan.surats" :key="surat.id" method="POST" action="/admin/viewpdf">
                         <input type="hidden" name="_token" :value="csrf">
                         <input type="hidden" name="filename" :value="surat.path_upload">
                         <v-btn type="submit" color="info">{{surat.jenis_surat.name}}</v-btn>
@@ -93,10 +93,10 @@
 
             <v-card>
             <v-card-text primary-title>
-               <span>Peserta magang: {{magang ? magang.users.name:''}}</span><br>
-              <span>Tgl Mulai magang: {{magang ? magang.from.toLocaleString():''}} </span><br>
-               <span>Tgl Selesai magang: {{magang ? magang.until.toLocaleString():''}} </span><br>
-               <span>Asal: {{magang ? magang.asal:''}} </span>
+               <span>Peserta pengembangan: {{pengembangan ? pengembangan.users.name:''}}</span><br>
+              <span>Tgl Mulai pengembangan: {{pengembangan ? pengembangan.from.toLocaleString():''}} </span><br>
+               <span>Tgl Selesai pengembangan: {{pengembangan ? pengembangan.until.toLocaleString():''}} </span><br>
+               <span>Asal: {{pengembangan ? pengembangan.asal:''}} </span>
             </v-card-text>
           </v-card>
 
@@ -147,7 +147,7 @@
 
 <script>
     export default {
-        props: ['dataMagang','dataKonstruktor'],
+        props: ['dataPengembangan','dataKonstruktor'],
          data () {
           return {
             selected:[],
@@ -161,15 +161,15 @@
               },
               { text: 'Asal', value: 'asal' },
               { text: 'Konstruktor', value: 'konstruktor' },
-              { text: 'Mulai Magang', value: 'from' },
-              { text: 'Selesai Magang', value: 'until' },
-              { text: 'Status Magang', value: 'status' },
+              { text: 'Mulai Pengembangan', value: 'from' },
+              { text: 'Selesai Pengembangan', value: 'until' },
+              { text: 'Status Pengembangan', value: 'status' },
               { text: 'Aksi', value: 'aksi' },
             ],
             rules: [
               v => !!v || 'Required'
             ],
-            magang:null,
+            pengembangan:null,
             items:[],
             csrf:document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             dialog:false,
@@ -180,9 +180,9 @@
         mounted() {
 
             console.log('Component mounted.');
-            console.log(this.dataMagang);
-            this.items = this.dataMagang;
-            this.addItemsMagangStatus();
+            console.log(this.dataPengembangan);
+            this.items = this.dataPengembangan;
+            this.addItemsPengembanganStatus();
           
             //alert(this.items[0].status.code);
 
@@ -193,13 +193,13 @@
           }
         },
          watch: {
-          'magang.from':function(val, oldVal) {
+          'pengembangan.from':function(val, oldVal) {
             //alert(val);
-            this.dateFormatted = this.formatDate(this.magang.from)
+            this.dateFormatted = this.formatDate(this.pengembangan.from)
           },
-          'magang.until':function(val, oldVal) {
+          'pengembangan.until':function(val, oldVal) {
             //alert(val);
-            this.dateFormatted2 = this.formatDate(this.magang.until)
+            this.dateFormatted2 = this.formatDate(this.pengembangan.until)
           },
         },
          methods: {
@@ -216,7 +216,7 @@
                confirmButtonText: 'Yakin !',
                showLoaderOnConfirm: true,
                preConfirm: () => {
-                  return axios.post("/admin/magang/delete", this.selected).then(res => {
+                  return axios.post("/admin/pengembangan/delete", this.selected).then(res => {
                      if (res.data.error) {
                         throw new Error(res.data.error)
                      }
@@ -232,14 +232,14 @@
                if (result.value) {
                   Swal.fire(
                      'Good job!',
-                     'Berhasil edit data magang',
+                     'Berhasil edit data pengembangan',
                      'success'
                   );
-                  this.loadMagang();
+                  this.loadPengembangan();
                }
             });  
           },
-          addItemsMagangStatus:function(){
+          addItemsPengembanganStatus:function(){
               this.items.forEach((v,k)=>{
               v.status = {}
               v.status.code = null;
@@ -254,7 +254,7 @@
               }
               if(v.is_completed){
                 v.status.code = 1;
-                v.status.description = "Magang Sudah Selesai";
+                v.status.description = "Pengembangan Sudah Selesai";
               }
             });
           },
@@ -263,10 +263,10 @@
                 this.$refs.form.$el.submit();
              }
           },
-          loadMagang:function(){
-            axios.get('/admin/magang/load').then((res)=>{
+          loadPengembangan:function(){
+            axios.get('/admin/pengembangan/load').then((res)=>{
               this.items = res.data;
-              this.addItemsMagangStatus();
+              this.addItemsPengembanganStatus();
             });
 
           },
@@ -284,7 +284,7 @@
                confirmButtonText: 'Yakin !',
                showLoaderOnConfirm: true,
                preConfirm: () => {
-                  return axios.post("/admin/magang/validasi", data).then(res => {
+                  return axios.post("/admin/pengembangan/validasi", data).then(res => {
                      if (res.data.error) {
                         throw new Error(res.data.error)
                      }
@@ -300,26 +300,26 @@
                if (result.value) {
                   Swal.fire(
                      'Good job!',
-                     'Berhasil edit data magang',
+                     'Berhasil edit data pengembangan',
                      'success'
                   );
-                  this.loadMagang();
+                  this.loadPengembangan();
 
                }
             });  
           },
-          editKonstruktor:function(magang){
-            this.magang=magang;
+          editKonstruktor:function(pengembangan){
+            this.pengembangan=pengembangan;
             this.dialog=true;
-            this.konstruktor=magang.konstruktor ? magang.konstruktor.user:null;
-            //console.log(magang.konstruktor.user);
+            this.konstruktor=pengembangan.konstruktor ? pengembangan.konstruktor.user:null;
+            //console.log(pengembangan.konstruktor.user);
           },
           submitKonstruktor:function(){
               console.log(this.konstruktor);
               if (!this.$refs.form.validate()) {
                  return;
               }
-             let data={'magang':this.magang,'user':this.konstruktor};
+             let data={'pengembangan':this.pengembangan,'user':this.konstruktor};
               Swal.fire({
                title: 'Are you sure?',
                text: "You won't be able to revert this!",
@@ -330,7 +330,7 @@
                confirmButtonText: 'Yakin !',
                showLoaderOnConfirm: true,
                preConfirm: () => {
-                  return axios.post("/admin/konstruktor/addtomagang", data).then(res => {
+                  return axios.post("/admin/konstruktor/addtopengembangan", data).then(res => {
                      if (res.data.error) {
                         throw new Error(res.data.error)
                      }
@@ -349,7 +349,7 @@
                      'Berhasil edit konstruktor',
                      'success'
                   );
-                  this.loadMagang();this.dialog=false;
+                  this.loadPengembangan();this.dialog=false;
                }
             });  
           },
@@ -367,7 +367,7 @@
                confirmButtonText: 'Yakin !',
                showLoaderOnConfirm: true,
                preConfirm: () => {
-                  return axios.post("/admin/magang/completed", data).then(res => {
+                  return axios.post("/admin/pengembangan/completed", data).then(res => {
                      if (res.data.error) {
                         throw new Error(res.data.error)
                      }
@@ -383,15 +383,15 @@
                if (result.value) {
                   Swal.fire(
                      'Good job!',
-                     'Berhasil edit data magang',
+                     'Berhasil edit data pengembangan',
                      'success'
                   );
-                  this.loadMagang();
+                  this.loadPengembangan();
                }
             });  
           },
           setSubItem:function(item_index){
-            this.magang = this.dataMagang[item_index];
+            this.pengembangan = this.dataPengembangan[item_index];
           },
           formatDate (date) {
             if (!date) return null

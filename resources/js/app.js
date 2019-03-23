@@ -27,11 +27,10 @@ Vue.use(Vuetify);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('magang-component', require('./components/MagangComponent.vue').default);
-Vue.component('pengembangan-component', require('./components/PengembanganComponent.vue').default);
-Vue.component('magang-admin-component', require('./components/MagangAdminComponent.vue').default);
-Vue.component('magang-konstruktor-component', require('./components/MagangKonstruktorComponent.vue').default);
-Vue.component('penilaian-magang-admin-component', require('./components/PenilaianMagangAdminComponent.vue').default);
+Vue.component('pengembangan-component', require('./components/MagangComponent.vue').default);
+Vue.component('pengembangan-admin-component', require('./components/MagangAdminComponent.vue').default);
+Vue.component('pengembangan-konstruktor-component', require('./components/MagangKonstruktorComponent.vue').default);
+Vue.component('penilaian-pengembangan-admin-component', require('./components/PenilaianMagangAdminComponent.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

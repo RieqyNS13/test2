@@ -2,25 +2,25 @@
     <v-app>
       <v-container>
         
-        <v-layout v-if="dataMagang.id">
-           <v-flex xs12 v-if="dataMagang.is_completed">
+        <v-layout v-if="dataPengembangan.id">
+           <v-flex xs12 v-if="dataPengembangan.is_completed">
             <v-card color="green darken-2" class="white--text">
               <v-card-title primary-title>
                 <div>
-                  <div class="headline">Magang Sudah Selesai</div>
-                  <span>Mulai Magang: {{dataMagang.from}}</span><br>
-                  <span>Selesai Magang: {{dataMagang.until}}</span><br>
-                  <span>Asal: {{dataMagang.asal}}</span><br>
-                  <span>Pembimbing Asal: {{dataMagang.pembimbing_asal ? dataMagang.pembimbing_asal.name:'-'}}</span><br>
+                  <div class="headline">Pengembangan Sudah Selesai</div>
+                  <span>Mulai Pengembangan: {{dataPengembangan.from}}</span><br>
+                  <span>Selesai Pengembangan: {{dataPengembangan.until}}</span><br>
+                  <span>Asal: {{dataPengembangan.asal}}</span><br>
+                  <span>Pembimbing Asal: {{dataPengembangan.pembimbing_asal ? dataPengembangan.pembimbing_asal.name:'-'}}</span><br>
 
-                  <span>Konstruktor: {{dataMagang.konstruktor ? dataMagang.konstruktor.user.name:'-'}}</span><br>
-                  <div v-if="dataMagang.nilai_is_validate">
-                  <v-btn @click="downloadPdfNilai(magang.id)">Lihat Nilai</v-btn>
+                  <span>Konstruktor: {{dataPengembangan.konstruktor ? dataPengembangan.konstruktor.user.name:'-'}}</span><br>
+                  <div v-if="dataPengembangan.nilai_is_validate">
+                  <v-btn @click="downloadPdfNilai(pengembangan.id)">Lihat Nilai</v-btn>
                 </div>
                   <div v-else>
                     <v-btn>Nilai Belum Keluar, Silahkan Tunggu</v-btn>
                   </div>
-                   <v-btn @click="downloadSertifikat(magang.id)">Lihat Sertifikat</v-btn>
+                   <v-btn @click="downloadSertifikat(pengembangan.id)">Lihat Sertifikat</v-btn>
                 </div>
               </v-card-title>
               <v-card-actions>
@@ -29,16 +29,16 @@
 
           </v-flex>
 
-          <v-flex xs12 v-else-if="dataMagang.is_validate">
+          <v-flex xs12 v-else-if="dataPengembangan.is_validate">
             <v-card color="blue darken-2" class="white--text">
               <v-card-title primary-title>
                 <div>
-                  <div class="headline">Magang Sudah Divalidasi</div>
-                  <span>Mulai Magang: {{dataMagang.from}}</span><br>
-                  <span>Selesai Magang: {{dataMagang.until}}</span><br>
-                  <span>Asal: {{dataMagang.asal}}</span><br>
-                  <span>Pembimbing Asal: {{dataMagang.pembimbing_asal ? dataMagang.pembimbing_asal.name:'-'}}</span><br>
-                  <span>Konstruktor: {{dataMagang.konstruktor ? dataMagang.konstruktor.user.name:'-'}}</span><br>
+                  <div class="headline">Pengembangan Sudah Divalidasi</div>
+                  <span>Mulai Pengembangan: {{dataPengembangan.from}}</span><br>
+                  <span>Selesai Pengembangan: {{dataPengembangan.until}}</span><br>
+                  <span>Asal: {{dataPengembangan.asal}}</span><br>
+                  <span>Pembimbing Asal: {{dataPengembangan.pembimbing_asal ? dataPengembangan.pembimbing_asal.name:'-'}}</span><br>
+                  <span>Konstruktor: {{dataPengembangan.konstruktor ? dataPengembangan.konstruktor.user.name:'-'}}</span><br>
                   <!--   <v-btn>Lihat Surat Permohonan</v-btn><br>
                      <v-btn >Lihat Surat Permohonan</v-btn> -->
                 </div>
@@ -131,7 +131,7 @@
                         v-model="valid3"
                         lazy-validation 
                         method="POST"
-                        action="/magang/addkonstruktor"
+                        action="/pengembangan/addkonstruktor"
                       >
                     <input type="hidden" name="_token" :value="csrf">
 
@@ -168,9 +168,9 @@
               <v-card-title primary-title>
                 <div>
                   <div class="headline">Menunggu Persetujuan Admin</div>
-                  <span>Mulai Magang: {{dataMagang.from}}</span><br>
-                  <span>Selesai Magang: {{dataMagang.until}}</span><br>
-                  <span>Asal: {{dataMagang.asal}}</span>
+                  <span>Mulai Pengembangan: {{dataPengembangan.from}}</span><br>
+                  <span>Selesai Pengembangan: {{dataPengembangan.until}}</span><br>
+                  <span>Asal: {{dataPengembangan.asal}}</span>
                   <!--   <v-btn>Lihat Surat Permohonan</v-btn><br>
                      <v-btn >Lihat Surat Permohonan</v-btn> -->
                 </div>
@@ -190,11 +190,11 @@
     lazy-validation 
     enctype="multipart/form-data" 
     method="POST"
-    action="/magang"
+    action="/pengembangan"
   >
 
-    <input type="hidden" name="from" :value="magang.from">
-    <input type="hidden" name="until" :value="magang.until">
+    <input type="hidden" name="from" :value="pengembangan.from">
+    <input type="hidden" name="until" :value="pengembangan.until">
     <input type="hidden" name="_token" :value="csrf">
 
     <v-menu
@@ -213,13 +213,13 @@
             slot="activator"
             :rules="[rules.required]"
             v-model="dateFormatted"
-            label="Tgl Mulai Magang"
+            label="Tgl Mulai Pengembangan"
             hint="MM/DD/YYYY format"
             persistent-hint
             prepend-icon="event"
-            @blur="magang.from = parseDate(dateFormatted)"
+            @blur="pengembangan.from = parseDate(dateFormatted)"
           ></v-text-field>
-          <v-date-picker v-model="magang.from" no-title @input="menu1 = false"></v-date-picker>
+          <v-date-picker v-model="pengembangan.from" no-title @input="menu1 = false"></v-date-picker>
         </v-menu>
 
          <v-menu
@@ -238,13 +238,13 @@
             slot="activator"
             :rules="[rules.required]"
             v-model="dateFormatted2"
-            label="Tgl Selesai Magang"
+            label="Tgl Selesai Pengembangan"
             hint="MM/DD/YYYY format"
             persistent-hint
             prepend-icon="event"
-            @blur="magang.until = parseDate(dateFormatted2)"
+            @blur="pengembangan.until = parseDate(dateFormatted2)"
           ></v-text-field>
-          <v-date-picker v-model="magang.until" no-title @input="menu2 = false"></v-date-picker>
+          <v-date-picker v-model="pengembangan.until" no-title @input="menu2 = false"></v-date-picker>
         </v-menu>
 
          <v-text-field
@@ -292,7 +292,7 @@
 
 <script>
     export default {
-        props: ['dataMagang','dataBiodata','dataKonstruktor'],
+        props: ['dataPengembangan','dataBiodata','dataKonstruktor'],
          data () {
           return {
             biodata:{
@@ -312,7 +312,7 @@
             dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
             dateFormatted2: this.formatDate(new Date().toISOString().substr(0, 10)),
             dateFormatted3: this.formatDate(new Date().toISOString().substr(0, 10)),
-            magang:{
+            pengembangan:{
               from:new Date().toISOString().substr(0, 10),
               until:new Date().toISOString().substr(0, 10)
             },
@@ -332,18 +332,18 @@
         },
         mounted() {
             console.log('Component mounted.');
-            console.log(this.dataMagang);
+            console.log(this.dataPengembangan);
             console.log(this.dataBiodata);
             console.log(this.dataKonstruktor);
-            this.magang.id = this.dataMagang.id;
+            this.pengembangan.id = this.dataPengembangan.id;
             if(this.dataBiodata.tgl_lahir){
               //this.biodata = this.dataBiodata;
             }
-            if(this.dataMagang.konstruktor){
-              this.pembimbing.konstruktor = this.dataMagang.konstruktor.user_id;
+            if(this.dataPengembangan.konstruktor){
+              this.pembimbing.konstruktor = this.dataPengembangan.konstruktor.user_id;
             }
-            if(this.dataMagang.pembimbing_asal){
-              this.pembimbing.pembimbing_asal = this.dataMagang.pembimbing_asal.name;
+            if(this.dataPengembangan.pembimbing_asal){
+              this.pembimbing.pembimbing_asal = this.dataPengembangan.pembimbing_asal.name;
             }
 
         }, 
@@ -353,13 +353,13 @@
           }
         },
          watch: {
-          'magang.from':function(val, oldVal) {
+          'pengembangan.from':function(val, oldVal) {
             //alert(val);
-            this.dateFormatted = this.formatDate(this.magang.from)
+            this.dateFormatted = this.formatDate(this.pengembangan.from)
           },
-          'magang.until':function(val, oldVal) {
+          'pengembangan.until':function(val, oldVal) {
             //alert(val);
-            this.dateFormatted2 = this.formatDate(this.magang.until)
+            this.dateFormatted2 = this.formatDate(this.pengembangan.until)
           },
           'biodata.tgl_lahir':function(val, oldVal) {
             //alert(val);
@@ -401,11 +401,11 @@
               });
              }
           },
-          downloadPdfNilai:function(magang_id){
-              window.open("/penilaian/downloadPdf/"+magang_id, "_blank");
+          downloadPdfNilai:function(pengembangan_id){
+              window.open("/penilaian/downloadPdf/"+pengembangan_id, "_blank");
           },
-          downloadSertifikat:function(magang_id){
-              window.open('/magang/downloadSertifikat/'+magang_id, '_blank');
+          downloadSertifikat:function(pengembangan_id){
+              window.open('/pengembangan/downloadSertifikat/'+pengembangan_id, '_blank');
           },
           submitBiodata:function(){
              if(this.$refs.form1.validate()){

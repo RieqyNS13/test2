@@ -12,7 +12,7 @@ class Penilaian extends Model
     public function sub_aspek_nilai(){
     	return $this->belongsTo('App\SubAspekNilai');
     }
-    public function magang(){
+    public function pengembangan(){
     	return $this->belongsTo('App\Magang');
     }
 }

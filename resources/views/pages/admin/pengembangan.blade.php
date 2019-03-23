@@ -24,7 +24,7 @@
     </div>
 @endif
 
-<magang-admin-component :data-konstruktor="{{$konstruktor}}" :data-magang="{{$magang}}"></magang-admin-component>
+<pengembangan-admin-component :data-konstruktor="{{$konstruktor}}" :data-pengembangan="{{$pengembangan}}"></pengembangan-admin-component>
 @endsection
 
 

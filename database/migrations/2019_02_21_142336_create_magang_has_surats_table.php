@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMagangHasSuratsTable extends Migration
+class CreatePengembanganHasSuratsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateMagangHasSuratsTable extends Migration
      */
     public function up()
     {
-        Schema::create('magang_has_surats', function (Blueprint $table) {
+        Schema::create('pengembangan_has_surats', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('magang_id');
+            $table->unsignedInteger('pengembangan_id');
             $table->unsignedInteger('surat_id');
             $table->timestamps();
 
-            $table->foreign('magang_id')->references('id')->on('magangs')->onDelete('cascade');
+            $table->foreign('pengembangan_id')->references('id')->on('pengembangans')->onDelete('cascade');
             $table->foreign('surat_id')->references('id')->on('surats')->onDelete('cascade');
         });
     }
@@ -31,6 +31,6 @@ class CreateMagangHasSuratsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('magang_has_surats');
+        Schema::dropIfExists('pengembangan_has_surats');
     }
 }

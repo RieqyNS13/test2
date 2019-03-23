@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMagangsTable extends Migration
+class CreatePengembangansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMagangsTable extends Migration
      */
     public function up()
     {
-        Schema::create('magangs', function (Blueprint $table) {
+        Schema::create('pengembangans', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->date('from')->nullable();
@@ -37,6 +37,6 @@ class CreateMagangsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('magangs');
+        Schema::dropIfExists('pengembangans');
     }
 }

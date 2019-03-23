@@ -308,18 +308,13 @@
                             <span>Home</span>
                         </a>
                     </li>
-                    <li class="{{Request::is('magang') ? 'active':''}}">
-                        <a href="{{url('magang')}}">
-                            <i class="material-icons">text_fields</i>
-                            <span>Magang</span>
-                        </a>
-                    </li>
                     <li class="{{Request::is('pengembangan') ? 'active':''}}">
                         <a href="{{url('pengembangan')}}">
-                            <i class="material-icons">layers</i>
-                            <span>Fasilitasi Pengembangan</span>
+                            <i class="material-icons">text_fields</i>
+                            <span>Pengembangan</span>
                         </a>
                     </li>
+                    
                     
     
                 </ul>

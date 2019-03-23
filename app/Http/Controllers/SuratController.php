@@ -15,13 +15,13 @@ class SuratController extends Controller
      */
     public function index()
     {
-        $data['magang'] = Magang::with(['konstruktor.user','pembimbing_asal'])->where('is_pengembangan',true)->where('user_id', auth()->user()->id)->first();
+        $data['pengembangan'] = Magang::with(['konstruktor.user','pembimbing_asal'])->where('is_pengembangan',true)->where('user_id', auth()->user()->id)->first();
         $data['biodata'] = Biodata::where('user_id',auth()->user()->id)->first();
         $data['konstruktor'] = User::whereHas('roles', function($query){
             $query->where('name','konstruktor');
         })->get();
         //$data['penilaian'] = $this->getnilai(Magang::);
-        return view('pages.magang', $data);
+        return view('pages.pengembangan', $data);
     }
 
     /**

@@ -25,12 +25,12 @@ Auth::routes();
 
 Route::middleware(['auth', 'admin'])->namespace('Admin')->prefix('admin')->group(function(){
 		Route::get("/home","HomeController@index");
-		Route::get('/magang', 'MagangController@index');
-		Route::post('/magang/validasi', 'MagangController@validasi');
-		Route::post('/magang/completed', 'MagangController@completed');
-		Route::post('/magang/delete', 'MagangController@delete');
+		Route::get('/pengembangan', 'MagangController@index');
+		Route::post('/pengembangan/validasi', 'MagangController@validasi');
+		Route::post('/pengembangan/completed', 'MagangController@completed');
+		Route::post('/pengembangan/delete', 'MagangController@delete');
 
-		Route::get('/magang/load', 'MagangController@load');
+		Route::get('/pengembangan/load', 'MagangController@load');
 		Route::post('/viewpdf', 'SuratController@viewpdf');
 		Route::get('/getnilai/{magang_id}', 'PenilaianController@getnilai');
 
@@ -39,13 +39,13 @@ Route::middleware(['auth', 'admin'])->namespace('Admin')->prefix('admin')->group
 
 		Route::resource('/penilaian', 'PenilaianController');
 		Route::post('/penilaian/validasi', 'PenilaianController@validasi');
-		Route::post('/konstruktor/addtomagang', 'KonstruktorController@addtomagang');
+		Route::post('/konstruktor/addtopengembangan', 'KonstruktorController@addtopengembangan');
 
 
 });
 Route::middleware(['auth', 'konstruktor'])->namespace('Konstruktor')->prefix('konstruktor')->group(function(){
 		Route::get("/home","HomeController@index");
-		Route::get('/magang', 'MagangController@index');
+		Route::get('/pengembangan', 'MagangController@index');
 		Route::post('/viewpdf', 'SuratController@viewpdf');
 		Route::get('/getnilai/{magang_id}', 'PenilaianController@getnilai');
 
@@ -59,24 +59,24 @@ Route::middleware(['auth', 'konstruktor'])->namespace('Konstruktor')->prefix('ko
 
 Route::middleware(['auth','auth'])->group(function(){
 	Route::get('/penilaian/downloadPdf/{magang_id}', 'PenilaianController@downloadPdf');
-	Route::get('/magang/downloadSertifikat/{magang_id}', 'MagangController@downloadSertifikat');
+	Route::get('/pengembangan/downloadSertifikat/{magang_id}', 'MagangController@downloadSertifikat');
 
-	//magang section//
-	Route::resource('/magang','MagangController'); //resource harus paling atas
-	Route::post('/magang/addkonstruktor','MagangController@addkonstruktor');
+	//pengembangan section//
+	Route::resource('/pengembangan','MagangController'); //resource harus paling atas
+	Route::post('/pengembangan/addkonstruktor','MagangController@addkonstruktor');
 	Route::resource('/biodata','BiodataController');
 	Route::get('/home', 'HomeController@index')->name('home');
 
 	//pengembangan section//
-	Route::resource('/pengembangan','PengembanganController');//resource harus paling atas
+	Route::resource('/pengembangan','MagangController');//resource harus paling atas
 
 });
 
-// Route::get('/penilaian/downloadPdf/{magang_id}', 'PenilaianController@downloadPdf')->middleware(['auth','user']);;
-// Route::get('/magang/downloadSertifikat/{magang_id}', 'MagangController@downloadSertifikat')->middleware(['auth','user']);;
+// Route::get('/penilaian/downloadPdf/{pengembangan_id}', 'PenilaianController@downloadPdf')->middleware(['auth','user']);;
+// Route::get('/pengembangan/downloadSertifikat/{pengembangan_id}', 'MagangController@downloadSertifikat')->middleware(['auth','user']);;
 
-// Route::resource('/magang','MagangController')->middleware(['auth','user']);
-// Route::post('/magang/addkonstruktor','MagangController@addkonstruktor')->middleware(['auth','user']);
+// Route::resource('/pengembangan','MagangController')->middleware(['auth','user']);
+// Route::post('/pengembangan/addkonstruktor','MagangController@addkonstruktor')->middleware(['auth','user']);
 // Route::resource('/biodata','BiodataController')->middleware(['auth','user']);
 
 

@@ -15,12 +15,12 @@ class CreatePembimbingAsalsTable extends Migration
     {
         Schema::create('pembimbing_asals', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('magang_id');
+            $table->unsignedInteger('pengembangan_id');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
 
-            $table->foreign('magang_id')->references('id')->on('magangs')->onDelete('cascade');
+            $table->foreign('pengembangan_id')->references('id')->on('pengembangans')->onDelete('cascade');
         });
     }
 

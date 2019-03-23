@@ -45,7 +45,7 @@ class BiodataController extends Controller
         $biodata = Biodata::firstOrNew(['user_id'=>auth()->user()->id]);
         $biodata->fill((array)$request->input());
         $biodata->save();
-        return redirect('magang')->with('success','Berhasil edit biodata');
+        return redirect('pengembangan')->with('success','Berhasil edit biodata');
         //dd($request->input());
     }
 

@@ -26,7 +26,7 @@
                   </td>
                   <td @click="setSubItem(props.index);props.expanded = !props.expanded">{{ props.item.users.name }}</td>
                   <td @click="setSubItem(props.index);props.expanded = !props.expanded">{{ props.item.asal }}</td>
-                  <td @click="setSubItem(props.index);props.expanded = !props.expanded" v-html="props.item.konstruktor ? props.item.konstruktor.user.name:'<span class=\'red--text\'><i>--belum ada</i></span>'"></td>
+                  
                   <td @click="setSubItem(props.index);props.expanded = !props.expanded">{{ props.item.from.toLocaleString() }}</td>
                   <td @click="setSubItem(props.index);props.expanded = !props.expanded">{{ props.item.until.toLocaleString() }}</td>
                   <td @click="setSubItem(props.index);props.expanded = !props.expanded" v-if="props.item.status.code==-1">
@@ -47,10 +47,10 @@
                 </td>
                 <td><!-- <v-btn color="primary"
                     dark
-                    @click.stop="getNilaiPesertaMagang(props.item)"
+                    @click.stop="getNilaiPesertaPengembangan(props.item)"
                     small>Penilaian</v-btn> -->
                    <v-btn-toggle mandatory>
-                    <v-btn @click.stop="getNilaiPesertaMagang(props.item)">
+                    <v-btn @click.stop="getNilaiPesertaPengembangan(props.item)">
                       Penilaian
                     </v-btn>
                     <v-btn @click="downloadPdfNilai(props.item)">
@@ -64,7 +64,7 @@
                 <template slot="expand" slot-scope="props">
                 <v-card flat>
                   <v-card-text>
-                      <v-form target="_blank" v-for="surat in magang.surats" :key="surat.id" method="POST" action="/konstruktor/viewpdf">
+                      <v-form target="_blank" v-for="surat in pengembangan.surats" :key="surat.id" method="POST" action="/konstruktor/viewpdf">
                         <input type="hidden" name="_token" :value="csrf">
                         <input type="hidden" name="filename" :value="surat.path_upload">
                         <v-btn type="submit" color="info">{{surat.jenis_surat.name}}</v-btn>
@@ -106,10 +106,10 @@
 
             <v-card>
             <v-card-text primary-title>
-               <span>Peserta magang: {{magang ? magang.users.name:''}}</span><br>
-              <span>Tgl Mulai magang: {{magang ? magang.from.toLocaleString():''}} </span><br>
-               <span>Tgl Selesai magang: {{magang ? magang.until.toLocaleString():''}} </span><br>
-               <span>Asal: {{magang ? magang.asal:''}} </span>
+               <span>Peserta pengembangan: {{pengembangan ? pengembangan.users.name:''}}</span><br>
+              <span>Tgl Mulai pengembangan: {{pengembangan ? pengembangan.from.toLocaleString():''}} </span><br>
+               <span>Tgl Selesai pengembangan: {{pengembangan ? pengembangan.until.toLocaleString():''}} </span><br>
+               <span>Asal: {{pengembangan ? pengembangan.asal:''}} </span>
             </v-card-text>
 
           </v-card>
@@ -293,7 +293,7 @@
 
 <script>
     export default {
-        props: ['dataMagang','dataFieldPenilaian'],
+        props: ['dataPengembangan','dataFieldPenilaian'],
          data () {
           return {
             selected:[],
@@ -307,13 +307,13 @@
               },
                 { text: 'Asal', value: 'asal' },
                { text: 'Konstruktor', value: 'konstruktor' },
-              { text: 'Mulai Magang', value: 'from' },
-              { text: 'Selesai Magang', value: 'until' },
-              { text: 'Status Magang', value: 'status' },
+              { text: 'Mulai Pengembangan', value: 'from' },
+              { text: 'Selesai Pengembangan', value: 'until' },
+              { text: 'Status Pengembangan', value: 'status' },
               { text: 'Status Penilaian', value: 'status_nilai' },
               { text: 'Aksi', value: 'status' },
             ],
-            magang:null,
+            pengembangan:null,
             items:[],
             csrf:document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             dialog:false,
@@ -333,10 +333,10 @@
         mounted() {
 
             console.log('Component mounted.');
-            console.log(this.dataMagang);
+            console.log(this.dataPengembangan);
             console.log(this.dataFieldPenilaian);
-            this.items = this.dataMagang;
-            this.addItemsMagangStatus();
+            this.items = this.dataPengembangan;
+            this.addItemsPengembanganStatus();
             this.penilaian = this.dataFieldPenilaian;
             //alert(this.items[0].status.code);
 
@@ -390,23 +390,23 @@
           submitEditNilaiName:function(){
               this.dialog2=false;
           },
-          getNilaiPesertaMagang:function(magang){
-            console.log(magang);
+          getNilaiPesertaPengembangan:function(pengembangan){
+            console.log(pengembangan);
 
              Swal.fire({
-              title: 'Mengambil nilai peserta magang',
+              title: 'Mengambil nilai peserta pengembangan',
               onBeforeOpen: () => {
                 Swal.showLoading()
               }
             });
-            axios.get('/konstruktor/getnilai/'+magang.id).then((res)=>{
+            axios.get('/konstruktor/getnilai/'+pengembangan.id).then((res)=>{
                 this.penilaian = res.data.penilaian;
-                this.magang = res.data.magang;
+                this.pengembangan = res.data.pengembangan;
                 this.dialog=true;
                 Swal.close();
             });
           },
-          addItemsMagangStatus:function(){
+          addItemsPengembanganStatus:function(){
               this.items.forEach((v,k)=>{
               v.status = {}
               v.status.code = null;
@@ -421,15 +421,15 @@
               }
               if(v.is_completed){
                 v.status.code = 1;
-                v.status.description = "Magang Sudah Selesai";
+                v.status.description = "Pengembangan Sudah Selesai";
               }
             });
           },
-          downloadPdfNilai:function(magang){
-              window.open("/konstruktor/penilaian/downloadPdf/"+magang.id, "_blank");
+          downloadPdfNilai:function(pengembangan){
+              window.open("/konstruktor/penilaian/downloadPdf/"+pengembangan.id, "_blank");
           },
           submitNilai:function(){
-            let data={'magang':this.magang,'penilaian':this.penilaian};
+            let data={'pengembangan':this.pengembangan,'penilaian':this.penilaian};
               Swal.fire({
                  title: 'Are you sure?',
                  text: "You won't be able to revert this!",
@@ -460,7 +460,7 @@
                        'success'
                     );
                     this.dialog=false;
-                    //this.loadMagang();
+                    //this.loadPengembangan();
                  }
               });  
           },
@@ -469,10 +469,10 @@
                 this.$refs.form.$el.submit();
              }
           },
-          loadMagang:function(){
+          loadPengembangan:function(){
             axios.get('/konstruktor/penilaian/load').then((res)=>{
               this.items = res.data;
-              this.addItemsMagangStatus();
+              this.addItemsPengembanganStatus();
             });
 
           },
@@ -509,12 +509,12 @@
                      'Berhasil validasi nilai',
                      'success'
                   );
-                  this.loadMagang();
+                  this.loadPengembangan();
                }
             });  
           },
           setSubItem:function(item_index){
-            this.magang = this.dataMagang[item_index];
+            this.pengembangan = this.dataPengembangan[item_index];
           }
         },
     }

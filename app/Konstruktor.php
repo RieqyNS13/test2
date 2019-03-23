@@ -11,7 +11,7 @@ class Konstruktor extends Model
     function user(){
     	return $this->belongsTo('App\User','user_id');
     }
-    function magang(){
-    	return $this->belongsTo('App\Magang','magang_id');
+    function pengembangan(){
+    	return $this->belongsTo('App\Pengembangan','pengembangan_id');
     }
 }

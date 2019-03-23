@@ -82,16 +82,16 @@ class PenilaianController extends Controller
     {
         //
     }
-    public function getnilai($magang_id){
+    public function getnilai($pengembangan_id){
         $aspek = \App\AspekNilai::all();
         foreach($aspek as $aspek_){
             foreach($aspek_->sub_aspek_nilai as $subaspek_){
-                $penilaian = $subaspek_->penilaian()->where('magang_id',$magang_id)->first();
+                $penilaian = $subaspek_->penilaian()->where('pengembangan_id',$pengembangan_id)->first();
                 $subaspek_->nilai = $penilaian!=null ? $penilaian->nilai:0;
                 $subaspek_->nilai_huruf = $this->konversiNilai($subaspek_->nilai);
             }
         }
-        return ['magang'=>\App\Magang::with('users')->findOrFail($magang_id), 'penilaian'=>$aspek];
+        return ['pengembangan'=>\App\Magang::with('users')->findOrFail($pengembangan_id), 'penilaian'=>$aspek];
     }
     public function konversiNilai($nilai){
         if($nilai>85)return 'A';
@@ -107,14 +107,14 @@ class PenilaianController extends Controller
         //$string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
        return preg_replace('/[^A-Za-z0-9 ]/', '', $string); // Removes special chars.
     }
-    public function downloadPdf($magang_id){
-        $magang = \App\Magang::whereHas('users',function($query){
+    public function downloadPdf($pengembangan_id){
+        $pengembangan = \App\Magang::whereHas('users',function($query){
             $query->where('user_id',auth()->user()->id);
-        })->findOrFail($magang_id);
-        if(!$magang->nilai_is_validate)abort(404);
+        })->findOrFail($pengembangan_id);
+        if(!$pengembangan->nilai_is_validate)abort(404);
         
-        $data = $this->getNilai($magang_id);
+        $data = $this->getNilai($pengembangan_id);
         $pdf = \PDF::loadView('pdf.penilaian',$data);
-        return $pdf->stream(Carbon::now('Asia/Jakarta')->format('Y-m-d').' - '.$this->clean($data['magang']->users->name).' - '.$data['magang']->asal);
+        return $pdf->stream(Carbon::now('Asia/Jakarta')->format('Y-m-d').' - '.$this->clean($data['pengembangan']->users->name).' - '.$data['pengembangan']->asal);
     }
 }

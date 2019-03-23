@@ -8,7 +8,7 @@ use App\Surat;
 use App\Biodata;
 use App\User;
 use App\Konstruktor;
-class PengembanganController extends Controller
+class MagangController extends Controller
 {
     /**
      * Display a listing of the resource.

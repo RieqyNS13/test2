@@ -1955,7 +1955,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['dataMagang', 'dataKonstruktor'],
+  props: ['dataPengembangan', 'dataKonstruktor'],
   data: function data() {
     return {
       selected: [],
@@ -1972,13 +1972,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         text: 'Konstruktor',
         value: 'konstruktor'
       }, {
-        text: 'Mulai Magang',
+        text: 'Mulai Pengembangan',
         value: 'from'
       }, {
-        text: 'Selesai Magang',
+        text: 'Selesai Pengembangan',
         value: 'until'
       }, {
-        text: 'Status Magang',
+        text: 'Status Pengembangan',
         value: 'status'
       }, {
         text: 'Aksi',
@@ -1987,7 +1987,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       rules: [function (v) {
         return !!v || 'Required';
       }],
-      magang: null,
+      pengembangan: null,
       items: [],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       dialog: false,
@@ -1997,9 +1997,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   },
   mounted: function mounted() {
     console.log('Component mounted.');
-    console.log(this.dataMagang);
-    this.items = this.dataMagang;
-    this.addItemsMagangStatus(); //alert(this.items[0].status.code);
+    console.log(this.dataPengembangan);
+    this.items = this.dataPengembangan;
+    this.addItemsPengembanganStatus(); //alert(this.items[0].status.code);
   },
   computed: {
     computedDateFormatted: function computedDateFormatted() {
@@ -2007,13 +2007,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     }
   },
   watch: {
-    'magang.from': function magangFrom(val, oldVal) {
+    'pengembangan.from': function pengembanganFrom(val, oldVal) {
       //alert(val);
-      this.dateFormatted = this.formatDate(this.magang.from);
+      this.dateFormatted = this.formatDate(this.pengembangan.from);
     },
-    'magang.until': function magangUntil(val, oldVal) {
+    'pengembangan.until': function pengembanganUntil(val, oldVal) {
       //alert(val);
-      this.dateFormatted2 = this.formatDate(this.magang.until);
+      this.dateFormatted2 = this.formatDate(this.pengembangan.until);
     }
   },
   methods: {
@@ -2032,7 +2032,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         confirmButtonText: 'Yakin !',
         showLoaderOnConfirm: true,
         preConfirm: function preConfirm() {
-          return axios.post("/admin/magang/delete", _this.selected).then(function (res) {
+          return axios.post("/admin/pengembangan/delete", _this.selected).then(function (res) {
             if (res.data.error) {
               throw new Error(res.data.error);
             }
@@ -2045,13 +2045,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         }
       }).then(function (result) {
         if (result.value) {
-          Swal.fire('Good job!', 'Berhasil edit data magang', 'success');
+          Swal.fire('Good job!', 'Berhasil edit data pengembangan', 'success');
 
-          _this.loadMagang();
+          _this.loadPengembangan();
         }
       });
     },
-    addItemsMagangStatus: function addItemsMagangStatus() {
+    addItemsPengembanganStatus: function addItemsPengembanganStatus() {
       this.items.forEach(function (v, k) {
         v.status = {};
         v.status.code = null;
@@ -2067,7 +2067,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
         if (v.is_completed) {
           v.status.code = 1;
-          v.status.description = "Magang Sudah Selesai";
+          v.status.description = "Pengembangan Sudah Selesai";
         }
       });
     },
@@ -2076,13 +2076,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         this.$refs.form.$el.submit();
       }
     },
-    loadMagang: function loadMagang() {
+    loadPengembangan: function loadPengembangan() {
       var _this2 = this;
 
-      axios.get('/admin/magang/load').then(function (res) {
+      axios.get('/admin/pengembangan/load').then(function (res) {
         _this2.items = res.data;
 
-        _this2.addItemsMagangStatus();
+        _this2.addItemsPengembanganStatus();
       });
     },
     submitValidasi: function submitValidasi(validate) {
@@ -2104,7 +2104,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         confirmButtonText: 'Yakin !',
         showLoaderOnConfirm: true,
         preConfirm: function preConfirm() {
-          return axios.post("/admin/magang/validasi", data).then(function (res) {
+          return axios.post("/admin/pengembangan/validasi", data).then(function (res) {
             if (res.data.error) {
               throw new Error(res.data.error);
             }
@@ -2117,16 +2117,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         }
       }).then(function (result) {
         if (result.value) {
-          Swal.fire('Good job!', 'Berhasil edit data magang', 'success');
+          Swal.fire('Good job!', 'Berhasil edit data pengembangan', 'success');
 
-          _this3.loadMagang();
+          _this3.loadPengembangan();
         }
       });
     },
-    editKonstruktor: function editKonstruktor(magang) {
-      this.magang = magang;
+    editKonstruktor: function editKonstruktor(pengembangan) {
+      this.pengembangan = pengembangan;
       this.dialog = true;
-      this.konstruktor = magang.konstruktor ? magang.konstruktor.user : null; //console.log(magang.konstruktor.user);
+      this.konstruktor = pengembangan.konstruktor ? pengembangan.konstruktor.user : null; //console.log(pengembangan.konstruktor.user);
     },
     submitKonstruktor: function submitKonstruktor() {
       var _this4 = this;
@@ -2138,7 +2138,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }
 
       var data = {
-        'magang': this.magang,
+        'pengembangan': this.pengembangan,
         'user': this.konstruktor
       };
       Swal.fire({
@@ -2151,7 +2151,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         confirmButtonText: 'Yakin !',
         showLoaderOnConfirm: true,
         preConfirm: function preConfirm() {
-          return axios.post("/admin/konstruktor/addtomagang", data).then(function (res) {
+          return axios.post("/admin/konstruktor/addtopengembangan", data).then(function (res) {
             if (res.data.error) {
               throw new Error(res.data.error);
             }
@@ -2166,7 +2166,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         if (result.value) {
           Swal.fire('Good job!', 'Berhasil edit konstruktor', 'success');
 
-          _this4.loadMagang();
+          _this4.loadPengembangan();
 
           _this4.dialog = false;
         }
@@ -2191,7 +2191,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         confirmButtonText: 'Yakin !',
         showLoaderOnConfirm: true,
         preConfirm: function preConfirm() {
-          return axios.post("/admin/magang/completed", data).then(function (res) {
+          return axios.post("/admin/pengembangan/completed", data).then(function (res) {
             if (res.data.error) {
               throw new Error(res.data.error);
             }
@@ -2204,14 +2204,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         }
       }).then(function (result) {
         if (result.value) {
-          Swal.fire('Good job!', 'Berhasil edit data magang', 'success');
+          Swal.fire('Good job!', 'Berhasil edit data pengembangan', 'success');
 
-          _this5.loadMagang();
+          _this5.loadPengembangan();
         }
       });
     },
     setSubItem: function setSubItem(item_index) {
-      this.magang = this.dataMagang[item_index];
+      this.pengembangan = this.dataPengembangan[item_index];
     },
     formatDate: function formatDate(date) {
       if (!date) return null;
@@ -2550,7 +2550,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['dataMagang', 'dataBiodata', 'dataKonstruktor'],
+  props: ['dataPengembangan', 'dataBiodata', 'dataKonstruktor'],
   data: function data() {
     return {
       biodata: {
@@ -2570,7 +2570,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
       dateFormatted2: this.formatDate(new Date().toISOString().substr(0, 10)),
       dateFormatted3: this.formatDate(new Date().toISOString().substr(0, 10)),
-      magang: {
+      pengembangan: {
         from: new Date().toISOString().substr(0, 10),
         until: new Date().toISOString().substr(0, 10)
       },
@@ -2595,20 +2595,20 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   },
   mounted: function mounted() {
     console.log('Component mounted.');
-    console.log(this.dataMagang);
+    console.log(this.dataPengembangan);
     console.log(this.dataBiodata);
     console.log(this.dataKonstruktor);
-    this.magang.id = this.dataMagang.id;
+    this.pengembangan.id = this.dataPengembangan.id;
 
     if (this.dataBiodata.tgl_lahir) {//this.biodata = this.dataBiodata;
     }
 
-    if (this.dataMagang.konstruktor) {
-      this.pembimbing.konstruktor = this.dataMagang.konstruktor.user_id;
+    if (this.dataPengembangan.konstruktor) {
+      this.pembimbing.konstruktor = this.dataPengembangan.konstruktor.user_id;
     }
 
-    if (this.dataMagang.pembimbing_asal) {
-      this.pembimbing.pembimbing_asal = this.dataMagang.pembimbing_asal.name;
+    if (this.dataPengembangan.pembimbing_asal) {
+      this.pembimbing.pembimbing_asal = this.dataPengembangan.pembimbing_asal.name;
     }
   },
   computed: {
@@ -2617,13 +2617,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     }
   },
   watch: {
-    'magang.from': function magangFrom(val, oldVal) {
+    'pengembangan.from': function pengembanganFrom(val, oldVal) {
       //alert(val);
-      this.dateFormatted = this.formatDate(this.magang.from);
+      this.dateFormatted = this.formatDate(this.pengembangan.from);
     },
-    'magang.until': function magangUntil(val, oldVal) {
+    'pengembangan.until': function pengembanganUntil(val, oldVal) {
       //alert(val);
-      this.dateFormatted2 = this.formatDate(this.magang.until);
+      this.dateFormatted2 = this.formatDate(this.pengembangan.until);
     },
     'biodata.tgl_lahir': function biodataTgl_lahir(val, oldVal) {
       //alert(val);
@@ -2669,11 +2669,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
         });
       }
     },
-    downloadPdfNilai: function downloadPdfNilai(magang_id) {
-      window.open("/penilaian/downloadPdf/" + magang_id, "_blank");
+    downloadPdfNilai: function downloadPdfNilai(pengembangan_id) {
+      window.open("/penilaian/downloadPdf/" + pengembangan_id, "_blank");
     },
-    downloadSertifikat: function downloadSertifikat(magang_id) {
-      window.open('/magang/downloadSertifikat/' + magang_id, '_blank');
+    downloadSertifikat: function downloadSertifikat(pengembangan_id) {
+      window.open('/pengembangan/downloadSertifikat/' + pengembangan_id, '_blank');
     },
     submitBiodata: function submitBiodata() {
       var _this3 = this;
@@ -3024,7 +3024,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['dataMagang', 'dataFieldPenilaian'],
+  props: ['dataPengembangan', 'dataFieldPenilaian'],
   data: function data() {
     return {
       selected: [],
@@ -3041,13 +3041,13 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Konstruktor',
         value: 'konstruktor'
       }, {
-        text: 'Mulai Magang',
+        text: 'Mulai Pengembangan',
         value: 'from'
       }, {
-        text: 'Selesai Magang',
+        text: 'Selesai Pengembangan',
         value: 'until'
       }, {
-        text: 'Status Magang',
+        text: 'Status Pengembangan',
         value: 'status'
       }, {
         text: 'Status Penilaian',
@@ -3056,7 +3056,7 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Aksi',
         value: 'status'
       }],
-      magang: null,
+      pengembangan: null,
       items: [],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       dialog: false,
@@ -3075,10 +3075,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     console.log('Component mounted.');
-    console.log(this.dataMagang);
+    console.log(this.dataPengembangan);
     console.log(this.dataFieldPenilaian);
-    this.items = this.dataMagang;
-    this.addItemsMagangStatus();
+    this.items = this.dataPengembangan;
+    this.addItemsPengembanganStatus();
     this.penilaian = this.dataFieldPenilaian; //alert(this.items[0].status.code);
   },
   computed: {
@@ -3133,24 +3133,24 @@ __webpack_require__.r(__webpack_exports__);
     submitEditNilaiName: function submitEditNilaiName() {
       this.dialog2 = false;
     },
-    getNilaiPesertaMagang: function getNilaiPesertaMagang(magang) {
+    getNilaiPesertaPengembangan: function getNilaiPesertaPengembangan(pengembangan) {
       var _this2 = this;
 
-      console.log(magang);
+      console.log(pengembangan);
       Swal.fire({
-        title: 'Mengambil nilai peserta magang',
+        title: 'Mengambil nilai peserta pengembangan',
         onBeforeOpen: function onBeforeOpen() {
           Swal.showLoading();
         }
       });
-      axios.get('/konstruktor/getnilai/' + magang.id).then(function (res) {
+      axios.get('/konstruktor/getnilai/' + pengembangan.id).then(function (res) {
         _this2.penilaian = res.data.penilaian;
-        _this2.magang = res.data.magang;
+        _this2.pengembangan = res.data.pengembangan;
         _this2.dialog = true;
         Swal.close();
       });
     },
-    addItemsMagangStatus: function addItemsMagangStatus() {
+    addItemsPengembanganStatus: function addItemsPengembanganStatus() {
       this.items.forEach(function (v, k) {
         v.status = {};
         v.status.code = null;
@@ -3166,18 +3166,18 @@ __webpack_require__.r(__webpack_exports__);
 
         if (v.is_completed) {
           v.status.code = 1;
-          v.status.description = "Magang Sudah Selesai";
+          v.status.description = "Pengembangan Sudah Selesai";
         }
       });
     },
-    downloadPdfNilai: function downloadPdfNilai(magang) {
-      window.open("/konstruktor/penilaian/downloadPdf/" + magang.id, "_blank");
+    downloadPdfNilai: function downloadPdfNilai(pengembangan) {
+      window.open("/konstruktor/penilaian/downloadPdf/" + pengembangan.id, "_blank");
     },
     submitNilai: function submitNilai() {
       var _this3 = this;
 
       var data = {
-        'magang': this.magang,
+        'pengembangan': this.pengembangan,
         'penilaian': this.penilaian
       };
       Swal.fire({
@@ -3204,7 +3204,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           Swal.fire('Good job!', 'Berhasil simpan nilai', 'success');
-          _this3.dialog = false; //this.loadMagang();
+          _this3.dialog = false; //this.loadPengembangan();
         }
       });
     },
@@ -3213,13 +3213,13 @@ __webpack_require__.r(__webpack_exports__);
         this.$refs.form.$el.submit();
       }
     },
-    loadMagang: function loadMagang() {
+    loadPengembangan: function loadPengembangan() {
       var _this4 = this;
 
       axios.get('/konstruktor/penilaian/load').then(function (res) {
         _this4.items = res.data;
 
-        _this4.addItemsMagangStatus();
+        _this4.addItemsPengembanganStatus();
       });
     },
     submitValidasi: function submitValidasi(validate) {
@@ -3256,12 +3256,12 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           Swal.fire('Good job!', 'Berhasil validasi nilai', 'success');
 
-          _this5.loadMagang();
+          _this5.loadPengembangan();
         }
       });
     },
     setSubItem: function setSubItem(item_index) {
-      this.magang = this.dataMagang[item_index];
+      this.pengembangan = this.dataPengembangan[item_index];
     }
   }
 });
@@ -3571,7 +3571,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['dataMagang', 'dataFieldPenilaian'],
+  props: ['dataPengembangan', 'dataFieldPenilaian'],
   data: function data() {
     return {
       selected: [],
@@ -3588,13 +3588,13 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Konstruktor',
         value: 'konstruktor'
       }, {
-        text: 'Mulai Magang',
+        text: 'Mulai Pengembangan',
         value: 'from'
       }, {
-        text: 'Selesai Magang',
+        text: 'Selesai Pengembangan',
         value: 'until'
       }, {
-        text: 'Status Magang',
+        text: 'Status Pengembangan',
         value: 'status'
       }, {
         text: 'Status Penilaian',
@@ -3603,7 +3603,7 @@ __webpack_require__.r(__webpack_exports__);
         text: 'Aksi',
         value: 'status'
       }],
-      magang: null,
+      pengembangan: null,
       items: [],
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       dialog: false,
@@ -3622,10 +3622,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     console.log('Component mounted.');
-    console.log(this.dataMagang);
+    console.log(this.dataPengembangan);
     console.log(this.dataFieldPenilaian);
-    this.items = this.dataMagang;
-    this.addItemsMagangStatus();
+    this.items = this.dataPengembangan;
+    this.addItemsPengembanganStatus();
     this.penilaian = this.dataFieldPenilaian; //alert(this.items[0].status.code);
   },
   computed: {
@@ -3680,19 +3680,19 @@ __webpack_require__.r(__webpack_exports__);
     submitEditNilaiName: function submitEditNilaiName() {
       this.dialog2 = false;
     },
-    getNilaiPesertaMagang: function getNilaiPesertaMagang(magang) {
+    getNilaiPesertaPengembangan: function getNilaiPesertaPengembangan(pengembangan) {
       var _this2 = this;
 
-      console.log(magang);
+      console.log(pengembangan);
       Swal.fire({
-        title: 'Mengambil nilai peserta magang',
+        title: 'Mengambil nilai peserta pengembangan',
         onBeforeOpen: function onBeforeOpen() {
           Swal.showLoading();
         }
       });
-      axios.get('/admin/getnilai/' + magang.id).then(function (res) {
+      axios.get('/admin/getnilai/' + pengembangan.id).then(function (res) {
         _this2.penilaian = res.data.penilaian;
-        _this2.magang = res.data.magang;
+        _this2.pengembangan = res.data.pengembangan;
         _this2.dialog = true;
         Swal.close();
       });
@@ -3712,7 +3712,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yakin !',
         showLoaderOnConfirm: true,
         preConfirm: function preConfirm() {
-          return axios.post("/admin/magang/delete", _this3.selected).then(function (res) {
+          return axios.post("/admin/pengembangan/delete", _this3.selected).then(function (res) {
             if (res.data.error) {
               throw new Error(res.data.error);
             }
@@ -3725,13 +3725,13 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (result) {
         if (result.value) {
-          Swal.fire('Good job!', 'Berhasil edit data magang', 'success');
+          Swal.fire('Good job!', 'Berhasil edit data pengembangan', 'success');
 
-          _this3.loadMagang();
+          _this3.loadPengembangan();
         }
       });
     },
-    addItemsMagangStatus: function addItemsMagangStatus() {
+    addItemsPengembanganStatus: function addItemsPengembanganStatus() {
       this.items.forEach(function (v, k) {
         v.status = {};
         v.status.code = null;
@@ -3747,18 +3747,18 @@ __webpack_require__.r(__webpack_exports__);
 
         if (v.is_completed) {
           v.status.code = 1;
-          v.status.description = "Magang Sudah Selesai";
+          v.status.description = "Pengembangan Sudah Selesai";
         }
       });
     },
-    downloadPdfNilai: function downloadPdfNilai(magang) {
-      window.open("/admin/penilaian/downloadPdf/" + magang.id, "_blank");
+    downloadPdfNilai: function downloadPdfNilai(pengembangan) {
+      window.open("/admin/penilaian/downloadPdf/" + pengembangan.id, "_blank");
     },
     submitNilai: function submitNilai() {
       var _this4 = this;
 
       var data = {
-        'magang': this.magang,
+        'pengembangan': this.pengembangan,
         'penilaian': this.penilaian
       };
       Swal.fire({
@@ -3785,7 +3785,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           Swal.fire('Good job!', 'Berhasil simpan nilai', 'success');
-          _this4.dialog = false; //this.loadMagang();
+          _this4.dialog = false; //this.loadPengembangan();
         }
       });
     },
@@ -3794,13 +3794,13 @@ __webpack_require__.r(__webpack_exports__);
         this.$refs.form.$el.submit();
       }
     },
-    loadMagang: function loadMagang() {
+    loadPengembangan: function loadPengembangan() {
       var _this5 = this;
 
       axios.get('/admin/penilaian/load').then(function (res) {
         _this5.items = res.data;
 
-        _this5.addItemsMagangStatus();
+        _this5.addItemsPengembanganStatus();
       });
     },
     submitValidasi: function submitValidasi(validate) {
@@ -3837,12 +3837,12 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           Swal.fire('Good job!', 'Berhasil validasi nilai', 'success');
 
-          _this6.loadMagang();
+          _this6.loadPengembangan();
         }
       });
     },
     setSubItem: function setSubItem(item_index) {
-      this.magang = this.dataMagang[item_index];
+      this.pengembangan = this.dataPengembangan[item_index];
     }
   }
 });
@@ -7825,7 +7825,9 @@ var render = function() {
                                 [
                                   _c(
                                     "v-card-text",
-                                    _vm._l(_vm.magang.surats, function(surat) {
+                                    _vm._l(_vm.pengembangan.surats, function(
+                                      surat
+                                    ) {
                                       return _c(
                                         "v-form",
                                         {
@@ -8039,10 +8041,10 @@ var render = function() {
                                 [
                                   _c("span", [
                                     _vm._v(
-                                      "Peserta magang: " +
+                                      "Peserta pengembangan: " +
                                         _vm._s(
-                                          _vm.magang
-                                            ? _vm.magang.users.name
+                                          _vm.pengembangan
+                                            ? _vm.pengembangan.users.name
                                             : ""
                                         )
                                     )
@@ -8051,10 +8053,10 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("span", [
                                     _vm._v(
-                                      "Tgl Mulai magang: " +
+                                      "Tgl Mulai pengembangan: " +
                                         _vm._s(
-                                          _vm.magang
-                                            ? _vm.magang.from.toLocaleString()
+                                          _vm.pengembangan
+                                            ? _vm.pengembangan.from.toLocaleString()
                                             : ""
                                         ) +
                                         " "
@@ -8064,10 +8066,10 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("span", [
                                     _vm._v(
-                                      "Tgl Selesai magang: " +
+                                      "Tgl Selesai pengembangan: " +
                                         _vm._s(
-                                          _vm.magang
-                                            ? _vm.magang.until.toLocaleString()
+                                          _vm.pengembangan
+                                            ? _vm.pengembangan.until.toLocaleString()
                                             : ""
                                         ) +
                                         " "
@@ -8079,7 +8081,9 @@ var render = function() {
                                     _vm._v(
                                       "Asal: " +
                                         _vm._s(
-                                          _vm.magang ? _vm.magang.asal : ""
+                                          _vm.pengembangan
+                                            ? _vm.pengembangan.asal
+                                            : ""
                                         ) +
                                         " "
                                     )
@@ -8203,11 +8207,11 @@ var render = function() {
       _c(
         "v-container",
         [
-          _vm.dataMagang.id
+          _vm.dataPengembangan.id
             ? _c(
                 "v-layout",
                 [
-                  _vm.dataMagang.is_completed
+                  _vm.dataPengembangan.is_completed
                     ? _c(
                         "v-flex",
                         { attrs: { xs12: "" } },
@@ -8227,28 +8231,29 @@ var render = function() {
                                     "div",
                                     [
                                       _c("div", { staticClass: "headline" }, [
-                                        _vm._v("Magang Sudah Selesai")
+                                        _vm._v("Pengembangan Sudah Selesai")
                                       ]),
                                       _vm._v(" "),
                                       _c("span", [
                                         _vm._v(
-                                          "Mulai Magang: " +
-                                            _vm._s(_vm.dataMagang.from)
+                                          "Mulai Pengembangan: " +
+                                            _vm._s(_vm.dataPengembangan.from)
                                         )
                                       ]),
                                       _c("br"),
                                       _vm._v(" "),
                                       _c("span", [
                                         _vm._v(
-                                          "Selesai Magang: " +
-                                            _vm._s(_vm.dataMagang.until)
+                                          "Selesai Pengembangan: " +
+                                            _vm._s(_vm.dataPengembangan.until)
                                         )
                                       ]),
                                       _c("br"),
                                       _vm._v(" "),
                                       _c("span", [
                                         _vm._v(
-                                          "Asal: " + _vm._s(_vm.dataMagang.asal)
+                                          "Asal: " +
+                                            _vm._s(_vm.dataPengembangan.asal)
                                         )
                                       ]),
                                       _c("br"),
@@ -8257,9 +8262,10 @@ var render = function() {
                                         _vm._v(
                                           "Pembimbing Asal: " +
                                             _vm._s(
-                                              _vm.dataMagang.pembimbing_asal
-                                                ? _vm.dataMagang.pembimbing_asal
-                                                    .name
+                                              _vm.dataPengembangan
+                                                .pembimbing_asal
+                                                ? _vm.dataPengembangan
+                                                    .pembimbing_asal.name
                                                 : "-"
                                             )
                                         )
@@ -8270,16 +8276,16 @@ var render = function() {
                                         _vm._v(
                                           "Konstruktor: " +
                                             _vm._s(
-                                              _vm.dataMagang.konstruktor
-                                                ? _vm.dataMagang.konstruktor
-                                                    .user.name
+                                              _vm.dataPengembangan.konstruktor
+                                                ? _vm.dataPengembangan
+                                                    .konstruktor.user.name
                                                 : "-"
                                             )
                                         )
                                       ]),
                                       _c("br"),
                                       _vm._v(" "),
-                                      _vm.dataMagang.nilai_is_validate
+                                      _vm.dataPengembangan.nilai_is_validate
                                         ? _c(
                                             "div",
                                             [
@@ -8289,7 +8295,7 @@ var render = function() {
                                                   on: {
                                                     click: function($event) {
                                                       return _vm.downloadPdfNilai(
-                                                        _vm.magang.id
+                                                        _vm.pengembangan.id
                                                       )
                                                     }
                                                   }
@@ -8317,7 +8323,7 @@ var render = function() {
                                           on: {
                                             click: function($event) {
                                               return _vm.downloadSertifikat(
-                                                _vm.magang.id
+                                                _vm.pengembangan.id
                                               )
                                             }
                                           }
@@ -8337,7 +8343,7 @@ var render = function() {
                         ],
                         1
                       )
-                    : _vm.dataMagang.is_validate
+                    : _vm.dataPengembangan.is_validate
                     ? _c(
                         "v-flex",
                         { attrs: { xs12: "" } },
@@ -8355,28 +8361,29 @@ var render = function() {
                                 [
                                   _c("div", [
                                     _c("div", { staticClass: "headline" }, [
-                                      _vm._v("Magang Sudah Divalidasi")
+                                      _vm._v("Pengembangan Sudah Divalidasi")
                                     ]),
                                     _vm._v(" "),
                                     _c("span", [
                                       _vm._v(
-                                        "Mulai Magang: " +
-                                          _vm._s(_vm.dataMagang.from)
+                                        "Mulai Pengembangan: " +
+                                          _vm._s(_vm.dataPengembangan.from)
                                       )
                                     ]),
                                     _c("br"),
                                     _vm._v(" "),
                                     _c("span", [
                                       _vm._v(
-                                        "Selesai Magang: " +
-                                          _vm._s(_vm.dataMagang.until)
+                                        "Selesai Pengembangan: " +
+                                          _vm._s(_vm.dataPengembangan.until)
                                       )
                                     ]),
                                     _c("br"),
                                     _vm._v(" "),
                                     _c("span", [
                                       _vm._v(
-                                        "Asal: " + _vm._s(_vm.dataMagang.asal)
+                                        "Asal: " +
+                                          _vm._s(_vm.dataPengembangan.asal)
                                       )
                                     ]),
                                     _c("br"),
@@ -8385,9 +8392,9 @@ var render = function() {
                                       _vm._v(
                                         "Pembimbing Asal: " +
                                           _vm._s(
-                                            _vm.dataMagang.pembimbing_asal
-                                              ? _vm.dataMagang.pembimbing_asal
-                                                  .name
+                                            _vm.dataPengembangan.pembimbing_asal
+                                              ? _vm.dataPengembangan
+                                                  .pembimbing_asal.name
                                               : "-"
                                           )
                                       )
@@ -8398,9 +8405,9 @@ var render = function() {
                                       _vm._v(
                                         "Konstruktor: " +
                                           _vm._s(
-                                            _vm.dataMagang.konstruktor
-                                              ? _vm.dataMagang.konstruktor.user
-                                                  .name
+                                            _vm.dataPengembangan.konstruktor
+                                              ? _vm.dataPengembangan.konstruktor
+                                                  .user.name
                                               : "-"
                                           )
                                       )
@@ -8665,7 +8672,7 @@ var render = function() {
                                       attrs: {
                                         "lazy-validation": "",
                                         method: "POST",
-                                        action: "/magang/addkonstruktor"
+                                        action: "/pengembangan/addkonstruktor"
                                       },
                                       model: {
                                         value: _vm.valid3,
@@ -8743,23 +8750,24 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("span", [
                                       _vm._v(
-                                        "Mulai Magang: " +
-                                          _vm._s(_vm.dataMagang.from)
+                                        "Mulai Pengembangan: " +
+                                          _vm._s(_vm.dataPengembangan.from)
                                       )
                                     ]),
                                     _c("br"),
                                     _vm._v(" "),
                                     _c("span", [
                                       _vm._v(
-                                        "Selesai Magang: " +
-                                          _vm._s(_vm.dataMagang.until)
+                                        "Selesai Pengembangan: " +
+                                          _vm._s(_vm.dataPengembangan.until)
                                       )
                                     ]),
                                     _c("br"),
                                     _vm._v(" "),
                                     _c("span", [
                                       _vm._v(
-                                        "Asal: " + _vm._s(_vm.dataMagang.asal)
+                                        "Asal: " +
+                                          _vm._s(_vm.dataPengembangan.asal)
                                       )
                                     ])
                                   ])
@@ -8800,7 +8808,7 @@ var render = function() {
                             "lazy-validation": "",
                             enctype: "multipart/form-data",
                             method: "POST",
-                            action: "/magang"
+                            action: "/pengembangan"
                           },
                           model: {
                             value: _vm.valid,
@@ -8813,12 +8821,12 @@ var render = function() {
                         [
                           _c("input", {
                             attrs: { type: "hidden", name: "from" },
-                            domProps: { value: _vm.magang.from }
+                            domProps: { value: _vm.pengembangan.from }
                           }),
                           _vm._v(" "),
                           _c("input", {
                             attrs: { type: "hidden", name: "until" },
-                            domProps: { value: _vm.magang.until }
+                            domProps: { value: _vm.pengembangan.until }
                           }),
                           _vm._v(" "),
                           _c("input", {
@@ -8853,14 +8861,14 @@ var render = function() {
                                 attrs: {
                                   slot: "activator",
                                   rules: [_vm.rules.required],
-                                  label: "Tgl Mulai Magang",
+                                  label: "Tgl Mulai Pengembangan",
                                   hint: "MM/DD/YYYY format",
                                   "persistent-hint": "",
                                   "prepend-icon": "event"
                                 },
                                 on: {
                                   blur: function($event) {
-                                    _vm.magang.from = _vm.parseDate(
+                                    _vm.pengembangan.from = _vm.parseDate(
                                       _vm.dateFormatted
                                     )
                                   }
@@ -8883,11 +8891,11 @@ var render = function() {
                                   }
                                 },
                                 model: {
-                                  value: _vm.magang.from,
+                                  value: _vm.pengembangan.from,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.magang, "from", $$v)
+                                    _vm.$set(_vm.pengembangan, "from", $$v)
                                   },
-                                  expression: "magang.from"
+                                  expression: "pengembangan.from"
                                 }
                               })
                             ],
@@ -8921,14 +8929,14 @@ var render = function() {
                                 attrs: {
                                   slot: "activator",
                                   rules: [_vm.rules.required],
-                                  label: "Tgl Selesai Magang",
+                                  label: "Tgl Selesai Pengembangan",
                                   hint: "MM/DD/YYYY format",
                                   "persistent-hint": "",
                                   "prepend-icon": "event"
                                 },
                                 on: {
                                   blur: function($event) {
-                                    _vm.magang.until = _vm.parseDate(
+                                    _vm.pengembangan.until = _vm.parseDate(
                                       _vm.dateFormatted2
                                     )
                                   }
@@ -8951,11 +8959,11 @@ var render = function() {
                                   }
                                 },
                                 model: {
-                                  value: _vm.magang.until,
+                                  value: _vm.pengembangan.until,
                                   callback: function($$v) {
-                                    _vm.$set(_vm.magang, "until", $$v)
+                                    _vm.$set(_vm.pengembangan, "until", $$v)
                                   },
-                                  expression: "magang.until"
+                                  expression: "pengembangan.until"
                                 }
                               })
                             ],
@@ -9114,22 +9122,6 @@ var render = function() {
                                   },
                                   [_vm._v(_vm._s(props.item.asal))]
                                 ),
-                                _vm._v(" "),
-                                _c("td", {
-                                  domProps: {
-                                    innerHTML: _vm._s(
-                                      props.item.konstruktor
-                                        ? props.item.konstruktor.user.name
-                                        : "<span class='red--text'><i>--belum ada</i></span>"
-                                    )
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.setSubItem(props.index)
-                                      props.expanded = !props.expanded
-                                    }
-                                  }
-                                }),
                                 _vm._v(" "),
                                 _c(
                                   "td",
@@ -9293,7 +9285,7 @@ var render = function() {
                                             on: {
                                               click: function($event) {
                                                 $event.stopPropagation()
-                                                return _vm.getNilaiPesertaMagang(
+                                                return _vm.getNilaiPesertaPengembangan(
                                                   props.item
                                                 )
                                               }
@@ -9343,7 +9335,9 @@ var render = function() {
                                 [
                                   _c(
                                     "v-card-text",
-                                    _vm._l(_vm.magang.surats, function(surat) {
+                                    _vm._l(_vm.pengembangan.surats, function(
+                                      surat
+                                    ) {
                                       return _c(
                                         "v-form",
                                         {
@@ -9510,10 +9504,10 @@ var render = function() {
                                 [
                                   _c("span", [
                                     _vm._v(
-                                      "Peserta magang: " +
+                                      "Peserta pengembangan: " +
                                         _vm._s(
-                                          _vm.magang
-                                            ? _vm.magang.users.name
+                                          _vm.pengembangan
+                                            ? _vm.pengembangan.users.name
                                             : ""
                                         )
                                     )
@@ -9522,10 +9516,10 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("span", [
                                     _vm._v(
-                                      "Tgl Mulai magang: " +
+                                      "Tgl Mulai pengembangan: " +
                                         _vm._s(
-                                          _vm.magang
-                                            ? _vm.magang.from.toLocaleString()
+                                          _vm.pengembangan
+                                            ? _vm.pengembangan.from.toLocaleString()
                                             : ""
                                         ) +
                                         " "
@@ -9535,10 +9529,10 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("span", [
                                     _vm._v(
-                                      "Tgl Selesai magang: " +
+                                      "Tgl Selesai pengembangan: " +
                                         _vm._s(
-                                          _vm.magang
-                                            ? _vm.magang.until.toLocaleString()
+                                          _vm.pengembangan
+                                            ? _vm.pengembangan.until.toLocaleString()
                                             : ""
                                         ) +
                                         " "
@@ -9550,7 +9544,9 @@ var render = function() {
                                     _vm._v(
                                       "Asal: " +
                                         _vm._s(
-                                          _vm.magang ? _vm.magang.asal : ""
+                                          _vm.pengembangan
+                                            ? _vm.pengembangan.asal
+                                            : ""
                                         ) +
                                         " "
                                     )
@@ -10251,7 +10247,7 @@ var render = function() {
                                             on: {
                                               click: function($event) {
                                                 $event.stopPropagation()
-                                                return _vm.getNilaiPesertaMagang(
+                                                return _vm.getNilaiPesertaPengembangan(
                                                   props.item
                                                 )
                                               }
@@ -10301,7 +10297,9 @@ var render = function() {
                                 [
                                   _c(
                                     "v-card-text",
-                                    _vm._l(_vm.magang.surats, function(surat) {
+                                    _vm._l(_vm.pengembangan.surats, function(
+                                      surat
+                                    ) {
                                       return _c(
                                         "v-form",
                                         {
@@ -10468,10 +10466,10 @@ var render = function() {
                                 [
                                   _c("span", [
                                     _vm._v(
-                                      "Peserta magang: " +
+                                      "Peserta pengembangan: " +
                                         _vm._s(
-                                          _vm.magang
-                                            ? _vm.magang.users.name
+                                          _vm.pengembangan
+                                            ? _vm.pengembangan.users.name
                                             : ""
                                         )
                                     )
@@ -10480,10 +10478,10 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("span", [
                                     _vm._v(
-                                      "Tgl Mulai magang: " +
+                                      "Tgl Mulai pengembangan: " +
                                         _vm._s(
-                                          _vm.magang
-                                            ? _vm.magang.from.toLocaleString()
+                                          _vm.pengembangan
+                                            ? _vm.pengembangan.from.toLocaleString()
                                             : ""
                                         ) +
                                         " "
@@ -10493,10 +10491,10 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("span", [
                                     _vm._v(
-                                      "Tgl Selesai magang: " +
+                                      "Tgl Selesai pengembangan: " +
                                         _vm._s(
-                                          _vm.magang
-                                            ? _vm.magang.until.toLocaleString()
+                                          _vm.pengembangan
+                                            ? _vm.pengembangan.until.toLocaleString()
                                             : ""
                                         ) +
                                         " "
@@ -10508,7 +10506,9 @@ var render = function() {
                                     _vm._v(
                                       "Asal: " +
                                         _vm._s(
-                                          _vm.magang ? _vm.magang.asal : ""
+                                          _vm.pengembangan
+                                            ? _vm.pengembangan.asal
+                                            : ""
                                         ) +
                                         " "
                                     )
@@ -48975,11 +48975,10 @@ Vue.use(vuetify__WEBPACK_IMPORTED_MODULE_1___default.a);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue").default);
-Vue.component('magang-component', __webpack_require__(/*! ./components/MagangComponent.vue */ "./resources/js/components/MagangComponent.vue").default);
-Vue.component('pengembangan-component', __webpack_require__(/*! ./components/PengembanganComponent.vue */ "./resources/js/components/PengembanganComponent.vue").default);
-Vue.component('magang-admin-component', __webpack_require__(/*! ./components/MagangAdminComponent.vue */ "./resources/js/components/MagangAdminComponent.vue").default);
-Vue.component('magang-konstruktor-component', __webpack_require__(/*! ./components/MagangKonstruktorComponent.vue */ "./resources/js/components/MagangKonstruktorComponent.vue").default);
-Vue.component('penilaian-magang-admin-component', __webpack_require__(/*! ./components/PenilaianMagangAdminComponent.vue */ "./resources/js/components/PenilaianMagangAdminComponent.vue").default);
+Vue.component('pengembangan-component', __webpack_require__(/*! ./components/MagangComponent.vue */ "./resources/js/components/MagangComponent.vue").default);
+Vue.component('pengembangan-admin-component', __webpack_require__(/*! ./components/MagangAdminComponent.vue */ "./resources/js/components/MagangAdminComponent.vue").default);
+Vue.component('pengembangan-konstruktor-component', __webpack_require__(/*! ./components/MagangKonstruktorComponent.vue */ "./resources/js/components/MagangKonstruktorComponent.vue").default);
+Vue.component('penilaian-pengembangan-admin-component', __webpack_require__(/*! ./components/PenilaianMagangAdminComponent.vue */ "./resources/js/components/PenilaianMagangAdminComponent.vue").default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -49268,38 +49267,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/PengembanganComponent.vue":
-/*!***********************************************************!*\
-  !*** ./resources/js/components/PengembanganComponent.vue ***!
-  \***********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-component.options.__file = "resources/js/components/PengembanganComponent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
 /***/ "./resources/js/components/PenilaianMagangAdminComponent.vue":
 /*!*******************************************************************!*\
   !*** ./resources/js/components/PenilaianMagangAdminComponent.vue ***!
@@ -49387,8 +49354,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\laravel\surat\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\laravel\surat\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\laravel\surat3\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\laravel\surat3\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

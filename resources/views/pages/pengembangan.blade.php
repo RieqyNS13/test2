@@ -30,7 +30,7 @@
     </div>
 @endif
 
-<magang-component  :data-konstruktor="{{$konstruktor}}" :data-biodata="{{$biodata ? $biodata: '{}'}}" :data-magang="{{$magang ? $magang: '{}'}}"></magang-component>
+<pengembangan-component  :data-konstruktor="{{$konstruktor}}" :data-biodata="{{$biodata ? $biodata: '{}'}}" :data-pengembangan="{{$pengembangan ? $pengembangan: '{}'}}"></pengembangan-component>
 @endsection
 
 

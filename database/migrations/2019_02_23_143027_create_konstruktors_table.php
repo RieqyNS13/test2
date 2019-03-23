@@ -16,11 +16,11 @@ class CreateKonstruktorsTable extends Migration
         Schema::create('konstruktors', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('magang_id');
+            $table->unsignedInteger('pengembangan_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('magang_id')->references('id')->on('magangs')->onDelete('cascade');
+            $table->foreign('pengembangan_id')->references('id')->on('pengembangans')->onDelete('cascade');
         });
     }
 

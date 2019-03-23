@@ -82,11 +82,11 @@ class KonstruktorController extends Controller
     {
         //
     }
-    public function addtomagang(Request $request){
+    public function addtopengembangan(Request $request){
     
-        $magang = $request->input('magang');
+        $pengembangan = $request->input('pengembangan');
         $user = $request->input('user');
-        $konstruktor = Konstruktor::firstOrNew(['magang_id'=>$magang['id']]);
+        $konstruktor = Konstruktor::firstOrNew(['magang_id'=>$pengembangan['id']]);
         $konstruktor->user_id = $user['id'];
         $konstruktor->save();
         return $konstruktor;

@@ -15,7 +15,7 @@ class PenilaianController extends Controller
      */
     public function index()
     {
-         $data['magang'] = \App\Magang::with(['users','konstruktor.user','surats.jenis_surat'])->get();
+         $data['pengembangan'] = \App\Magang::with(['users','konstruktor.user','surats.jenis_surat'])->get();
          $data['fieldPenilaian'] = \App\AspekNilai::with('sub_aspek_nilai')->get();
          //return $data;
         return view('pages.admin.penilaian',$data);
@@ -39,7 +39,7 @@ class PenilaianController extends Controller
      */
     public function store(Request $request)
     {
-        $magang = $request->input('magang');
+        $pengembangan = $request->input('pengembangan');
         $aspeks = $request->input('penilaian');
 
         $request->validate([
@@ -59,7 +59,7 @@ class PenilaianController extends Controller
                     $sub_aspek_nilai_id = $newSubAspek->id;
                 }
                 $newSubAspekIds[] = $sub_aspek_nilai_id;
-                $penilaian = Penilaian::firstOrNew(['magang_id'=>$magang['id'], 'sub_aspek_nilai_id'=>$sub_aspek_nilai_id]);
+                $penilaian = Penilaian::firstOrNew(['magang_id'=>$pengembangan['id'], 'sub_aspek_nilai_id'=>$sub_aspek_nilai_id]);
                 $penilaian->nilai = $sub_aspek_nilai['nilai'];
                 $penilaian->custom_name = $sub_aspek_nilai['name'];
                 $penilaian->save();
@@ -68,7 +68,7 @@ class PenilaianController extends Controller
             foreach($removedSubAspek as $removedSubAspek_)
                     $removedSubAspek_->delete();
         }
-        return $this->getNilai($magang['id']);
+        return $this->getNilai($pengembangan['id']);
     }
 
     /**
@@ -118,10 +118,10 @@ class PenilaianController extends Controller
     public function validasi(Request $request){
         $data = $request->input('data');
         $validate = $request->input('validate');
-        foreach($data as $magang){
-            $magang_ = \App\Magang::findOrFail($magang['id']);
-            $magang_->nilai_is_validate = $validate;
-            $magang_->save();
+        foreach($data as $pengembangan){
+            $pengembangan_ = \App\Magang::findOrFail($pengembangan['id']);
+            $pengembangan_->nilai_is_validate = $validate;
+            $pengembangan_->save();
         }
         return ['sukses'=>'success'];
     }
@@ -165,7 +165,7 @@ class PenilaianController extends Controller
             $aspek_->sub_aspek_nilai = array_merge($subAspekNotCustomized->toArray(), $subAspekCustomized);
         }
         //print_r($aspek->toArray());die;
-        return ['magang'=>\App\Magang::with('konstruktor.user','users')->findOrFail($magang_id), 'penilaian'=>$aspek];
+        return ['pengembangan'=>\App\Magang::with('konstruktor.user','users')->findOrFail($magang_id), 'penilaian'=>$aspek];
     }
     public function konversiNilai($nilai){
         if($nilai>85)return 'A';
@@ -184,14 +184,14 @@ class PenilaianController extends Controller
     public function downloadPdf($magang_id){
         $data = $this->getNilai($magang_id);
         $pdf = \PDF::loadView('pdf.penilaian',$data);
-        return $pdf->stream(Carbon::now('Asia/Jakarta')->format('Y-m-d').' - '.$this->clean($data['magang']->users->name).' - '.$data['magang']->asal);
+        return $pdf->stream(Carbon::now('Asia/Jakarta')->format('Y-m-d').' - '.$this->clean($data['pengembangan']->users->name).' - '.$data['pengembangan']->asal);
     }
     public function test(){
        
         //return view('pdf.penilaian',$this->getNilai(1));
         $data = $this->getNilai(1);
         $pdf = \PDF::loadView('pdf.penilaian',$data);
-        return $pdf->stream(Carbon::now('Asia/Jakarta')->format('Y-m-d').' - '.$this->clean($data['magang']->users->name).' - '.$data['magang']->asal);
+        return $pdf->stream(Carbon::now('Asia/Jakarta')->format('Y-m-d').' - '.$this->clean($data['pengembangan']->users->name).' - '.$data['pengembangan']->asal);
     }
 
 }

@@ -20,13 +20,13 @@ class MagangController extends Controller
      */
     public function index()
     {
-        $data['magang'] = Magang::with(['konstruktor.user','pembimbing_asal'])->where('user_id', auth()->user()->id)->first();
+        $data['pengembangan'] = Magang::with(['konstruktor.user','pembimbing_asal'])->where('user_id', auth()->user()->id)->first();
         $data['biodata'] = Biodata::where('user_id',auth()->user()->id)->first();
         $data['konstruktor'] = User::whereHas('roles', function($query){
             $query->where('name','konstruktor');
         })->get();
         //$data['penilaian'] = $this->getnilai(Magang::);
-        return view('pages.magang', $data);
+        return view('pages.pengembangan', $data);
     }
 
     /**
@@ -48,9 +48,9 @@ class MagangController extends Controller
     public function store(Request $request)
     {
         $check = Magang::where('user_id', auth()->user()->id)->where('is_completed',0)->first();
-        if($check!=null)return back()->with('error', 'Data magang sudah ada');
+        if($check!=null)return back()->with('error', 'Data pengembangan sudah ada');
         
-        $magang = new Magang;
+        $pengembangan = new Magang;
 
        $request->validate([
             'from' =>'required|date',
@@ -79,14 +79,14 @@ class MagangController extends Controller
        $surat_permohonan->save();
        $surat[] = $surat_permohonan->id;
 
-        $magang->user_id = auth()->user()->id;
-       $magang->from = $request->from;
-       $magang->until = $request->until;
-       $magang->asal = $request->input('asal');
-       $magang->save();
+        $pengembangan->user_id = auth()->user()->id;
+       $pengembangan->from = $request->from;
+       $pengembangan->until = $request->until;
+       $pengembangan->asal = $request->input('asal');
+       $pengembangan->save();
 
-       $magang->surats()->sync($surat);
-       return redirect('/magang')->with('success',' Sukses mengajukan permohonan magang, silahkan tunggu validasi dari Admin');
+       $pengembangan->surats()->sync($surat);
+       return redirect('/pengembangan')->with('success',' Sukses mengajukan permohonan pengembangan, silahkan tunggu validasi dari Admin');
 
 
     }
@@ -145,35 +145,35 @@ class MagangController extends Controller
         //     $query->where('name','konstruktor');
         // })->findOrFail($request->input('user_id'));
         //dd($user);
-        $magang = Magang::where('user_id', auth()->user()->id)->where('is_completed',0)->first(); //hanya bisa mengedit pembimbing jika magang belum selesai
+        $pengembangan = Magang::where('user_id', auth()->user()->id)->where('is_completed',0)->first(); //hanya bisa mengedit pembimbing jika pengembangan belum selesai
 
-        // $konstruktor = Konstruktor::firstOrNew(['magang_id'=>$magang->id]);
+        // $konstruktor = Konstruktor::firstOrNew(['pengembangan_id'=>$pengembangan->id]);
         // $konstruktor->user_id=$user->id;
         // $konstruktor->save();
 
-        $pembimbing = \App\PembimbingAsal::firstOrNew(['magang_id'=>$magang->id]);
+        $pembimbing = \App\PembimbingAsal::firstOrNew(['pengembangan_id'=>$pengembangan->id]);
         $pembimbing->name = $request->input('pembimbing_asal');
         $pembimbing->save();
-        return redirect('/magang')->with('success', 'Berhasil edit data pembimbing');
+        return redirect('/pengembangan')->with('success', 'Berhasil edit data pembimbing');
 
     }
-    public function getnilai($magang_id){
+    public function getnilai($pengembangan_id){
         $aspek = \App\AspekNilai::all();
         foreach($aspek as $aspek_){
             foreach($aspek_->sub_aspek_nilai as $subaspek_){
-                $penilaian = $subaspek_->penilaian()->where('magang_id',$magang_id)->first();
+                $penilaian = $subaspek_->penilaian()->where('pengembangan_id',$pengembangan_id)->first();
                 $subaspek_->nilai = $penilaian!=null ? $penilaian->nilai:0;
                 $subaspek_->nilai_huruf = $this->konversiNilai($subaspek_->nilai);
             }
         }
-        return ['magang'=>\App\Magang::with('konstruktor.user','users')->findOrFail($magang_id), 'penilaian'=>$aspek];
+        return ['pengembangan'=>\App\Magang::with('konstruktor.user','users')->findOrFail($pengembangan_id), 'penilaian'=>$aspek];
     }
-    public function downloadSertifikat($magang_id){
-        $magang = Magang::whereHas('users',function($query){
+    public function downloadSertifikat($pengembangan_id){
+        $pengembangan = Magang::whereHas('users',function($query){
             $query->where('user_id',auth()->user()->id);
-        })->with('users')->findOrFail($magang_id);
+        })->with('users')->findOrFail($pengembangan_id);
 
-        $nama = $magang->users->name;
+        $nama = $pengembangan->users->name;
         $gambar = asset('assets/images/sertifikat.jpg');
         //return $gambar;
         $image = imagecreatefromjpeg('https://drive.google.com/uc?export=view&id=12HA9hVJQZHX38EL3zvP1AcfqadYh2TEB');
@@ -192,8 +192,8 @@ class MagangController extends Controller
         //generate sertifikat beserta namanya
         imagettftext($image, $size, 0, $x, 430, $black, $font, $nama);
         $font = storage_path('times.ttf');
-        imagettftext($image, 21, 0, 600, 542, $black, $font, $magang->from);
-        imagettftext($image, 21, 0, 809, 542, $black, $font, $magang->until);
+        imagettftext($image, 21, 0, 600, 542, $black, $font, $pengembangan->from);
+        imagettftext($image, 21, 0, 809, 542, $black, $font, $pengembangan->until);
 
         //tampilkan di browser
         header("Content-type:  image/jpeg");
@@ -203,7 +203,7 @@ class MagangController extends Controller
 
     }
     public function test(){
-         $data['magang'] = Magang::with(['users'])->first();
+         $data['pengembangan'] = Magang::with(['users'])->first();
         return view('pdf.penilaian',$data);
        $pdf = \PDF::loadView('pdf.penilaian');
         return $pdf->stream('invoice.pdf');

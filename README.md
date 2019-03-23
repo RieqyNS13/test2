@@ -1,1 +1,1 @@
-buatin project magang temen
+buatin project pengembangan temen

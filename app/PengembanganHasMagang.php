@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PengembanganHasMagang extends Model
+class PengembanganHasPengembangan extends Model
 {
     //
 }

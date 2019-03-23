@@ -15,13 +15,13 @@ class CreatePenilaiansTable extends Migration
     {
         Schema::create('penilaians', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('magang_id');
+            $table->unsignedInteger('pengembangan_id');
             $table->unsignedInteger('sub_aspek_nilai_id');
             $table->float('nilai',8,2);
             $table->string('custom_name')->nullable();
             $table->timestamps();
 
-            $table->foreign('magang_id')->references('id')->on('magangs')->onDelete('cascade');
+            $table->foreign('pengembangan_id')->references('id')->on('pengembangans')->onDelete('cascade');
             $table->foreign('sub_aspek_nilai_id')->references('id')->on('sub_aspek_nilais')->onDelete('cascade');
         });
     }

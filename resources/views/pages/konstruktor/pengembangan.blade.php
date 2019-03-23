@@ -24,7 +24,7 @@
     </div>
 @endif
 
-<magang-konstruktor-component :data-field-penilaian="{{$fieldPenilaian}}" :data-magang="{{$magang}}"></magang-konstruktor-component>
+<pengembangan-konstruktor-component :data-field-penilaian="{{$fieldPenilaian}}" :data-pengembangan="{{$pengembangan}}"></pengembangan-konstruktor-component>
 @endsection
 
 

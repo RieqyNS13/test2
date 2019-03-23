@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePengembanganHasMagangsTable extends Migration
+class CreatePengembanganHasPengembangansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreatePengembanganHasMagangsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengembangan_has_magangs', function (Blueprint $table) {
+        Schema::create('pengembangan_has_pengembangans', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('pengembangan_id');
-            $table->unsignedInteger('magang_id');
+            $table->unsignedInteger('pengembangan_id');
             $table->timestamps();
 
             $table->foreign('pengembangan_id')->references('id')->on('pengembangans')->onDelete('cascade');
-            $table->foreign('magang_id')->references('id')->on('magangs')->onDelete('cascade');
+            $table->foreign('pengembangan_id')->references('id')->on('pengembangans')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ class CreatePengembanganHasMagangsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengembangan_has_magangs');
+        Schema::dropIfExists('pengembangan_has_pengembangans');
     }
 }

@@ -308,18 +308,13 @@
                             <span>Home</span>
                         </a>
                     </li>
-                    <li class="{{Request::is('konstruktor/magang') ? 'active':''}}">
-                        <a href="{{url('konstruktor/magang')}}">
+                    <li class="{{Request::is('konstruktor/pengembangan') ? 'active':''}}">
+                        <a href="{{url('konstruktor/pengembangan')}}">
                             <i class="material-icons">text_fields</i>
-                            <span>Magang</span>
+                            <span>Pengembangan</span>
                         </a>
                     </li>
-                    <li class="{{Request::is('pengembangan') ? 'active':''}}">
-                        <a href="{{url('pengembangan')}}">
-                            <i class="material-icons">layers</i>
-                            <span>Fasilitasi Pengembangan</span>
-                        </a>
-                    </li>
+                    
                 
                 </ul>
             </div>

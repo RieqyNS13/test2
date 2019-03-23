@@ -16,12 +16,12 @@ class MagangController extends Controller
      */
     public function index()
     {
-        $data['magang'] = Magang::with(['users','konstruktor.user','surats.jenis_surat'])->get();
+        $data['pengembangan'] = Magang::with(['users','konstruktor.user','surats.jenis_surat'])->get();
         $data['konstruktor'] =  \App\User::whereHas('roles', function($query){
             $query->where('name','konstruktor');
         })->get();
 
-        return view('pages.admin.magang', $data);
+        return view('pages.admin.pengembangan', $data);
     }
 
     /**
@@ -95,29 +95,29 @@ class MagangController extends Controller
     public function validasi(Request $request){
         $data = $request->input('data');
         $validate = $request->input('validate');
-        foreach($data as $magang){
-            $magang_ = Magang::findOrFail($magang['id']);
-            $magang_->is_validate = $validate;
-            $magang_->save();
+        foreach($data as $pengembangan){
+            $pengembangan_ = Magang::findOrFail($pengembangan['id']);
+            $pengembangan_->is_validate = $validate;
+            $pengembangan_->save();
         }
         return ['sukses'=>'success'];
     }
     public function completed(Request $request){
         $data = $request->input('data');
         $completed = $request->input('completed');
-        foreach($data as $magang){
-            $magang_ = Magang::findOrFail($magang['id']);
-            $magang_->is_completed = $completed;
-            $magang_->save();
+        foreach($data as $pengembangan){
+            $pengembangan_ = Magang::findOrFail($pengembangan['id']);
+            $pengembangan_->is_completed = $completed;
+            $pengembangan_->save();
         }
         return ['sukses'=>'success'];
     }
     public function delete(Request $request){
         $data = $request->input();
         
-        foreach($data as $magang){
-            $magang_ = Magang::findOrFail($magang['id']);
-            $magang_->delete();
+        foreach($data as $pengembangan){
+            $pengembangan_ = Magang::findOrFail($pengembangan['id']);
+            $pengembangan_->delete();
         }
         return ['sukses'=>'success'];
     }
